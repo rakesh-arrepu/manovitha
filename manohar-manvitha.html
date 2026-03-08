@@ -176,12 +176,58 @@ nav.sd{box-shadow:0 4px 32px rgba(76,29,149,.18),0 1px 0 rgba(201,162,39,.12)}
 .h-date{font-family:'Cinzel',serif;font-size:clamp(.8rem,2vw,1rem);letter-spacing:.3em;color:rgba(255,255,255,.75);margin-bottom:.35rem;opacity:0;animation:up 1s ease 1.45s forwards}
 .h-loc{font-family:'Cormorant Infant',serif;font-size:clamp(1rem,2.5vw,1.3rem);font-style:italic;font-weight:600;color:rgba(255,255,255,.82);margin-bottom:1.5rem;opacity:0;animation:up 1s ease 1.6s forwards}
 .h-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:up 1s ease 1.8s forwards}
-.btn-gold{padding:.9rem 2.5rem;background:linear-gradient(135deg,var(--gold),var(--golddk));color:var(--night);font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border-radius:50px;box-shadow:0 10px 40px rgba(201,162,39,.35);transition:transform .25s,box-shadow .25s;cursor:pointer;border:none}
-.btn-gold:hover{transform:translateY(-3px);box-shadow:0 16px 50px rgba(201,162,39,.5)}
-.btn-gold:focus-visible{outline:3px solid var(--goldbr);outline-offset:4px}
-.btn-ghost{padding:.9rem 2.5rem;background:transparent;color:rgba(255,255,255,.85);font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border-radius:50px;border:1px solid rgba(255,255,255,.3);transition:all .25s;cursor:pointer}
-.btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6)}
-.btn-ghost:focus-visible{outline:3px solid var(--goldbr);outline-offset:4px}
+/* ── PRIMARY BUTTON — rich metallic gold ─────────────────────────── */
+.btn-gold{padding:1.05rem 2.8rem;position:relative;overflow:hidden;
+  font-family:'Cinzel',serif;font-size:.82rem;font-weight:800;letter-spacing:.28em;
+  text-transform:uppercase;text-decoration:none;border-radius:50px;cursor:pointer;
+  border:1.5px solid rgba(255,220,80,.55);
+  color:#1a0800;
+  text-shadow:0 1px 0 rgba(255,255,255,.5),0 -1px 0 rgba(0,0,0,.2);
+  background:linear-gradient(135deg,
+    #7a4d08 0%,#c9920f 12%,#f0c040 28%,
+    #fde878 45%,#fff5a0 50%,
+    #fde878 55%,#f0c040 72%,
+    #c9920f 88%,#7a4d08 100%);
+  box-shadow:
+    0 2px 6px  rgba(201,144,15,.7),
+    0 6px 22px rgba(201,144,15,.55),
+    0 14px 50px rgba(201,144,15,.38),
+    0 0 90px  rgba(253,232,120,.2),
+    inset 0 1px 0 rgba(255,255,255,.65),
+    inset 0 -2px 0 rgba(0,0,0,.15);
+  transition:transform .22s ease,box-shadow .22s ease}
+.btn-gold::after{content:'';position:absolute;top:0;left:-110%;width:55%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
+  transition:left .55s ease}
+.btn-gold:hover{transform:translateY(-4px) scale(1.03);
+  box-shadow:
+    0 4px 10px  rgba(201,144,15,.8),
+    0 10px 34px rgba(201,144,15,.65),
+    0 22px 70px rgba(201,144,15,.45),
+    0 0 130px  rgba(253,232,120,.3),
+    inset 0 1px 0 rgba(255,255,255,.65),
+    inset 0 -2px 0 rgba(0,0,0,.15)}
+.btn-gold:hover::after{left:130%}
+.btn-gold:focus-visible{outline:3px solid var(--goldbr);outline-offset:5px}
+
+/* ── SECONDARY BUTTON — glassmorphism lavender ───────────────────── */
+.btn-ghost{padding:1.05rem 2.8rem;
+  font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;letter-spacing:.28em;
+  text-transform:uppercase;text-decoration:none;border-radius:50px;cursor:pointer;
+  color:#fff;
+  background:linear-gradient(135deg,rgba(120,60,220,.55),rgba(160,100,255,.45));
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1.5px solid rgba(200,170,255,.7);
+  box-shadow:0 4px 18px rgba(120,60,220,.4),0 8px 32px rgba(120,60,220,.25),
+             inset 0 1px 0 rgba(255,255,255,.22);
+  transition:all .22s ease}
+.btn-ghost:hover{
+  background:rgba(140,100,240,.28);
+  border-color:rgba(210,185,255,.9);
+  color:#fff;
+  box-shadow:0 0 40px rgba(140,100,240,.4),0 8px 32px rgba(140,100,240,.3),inset 0 1px 0 rgba(255,255,255,.18);
+  transform:translateY(-4px)}
+.btn-ghost:focus-visible{outline:3px solid rgba(200,170,255,.75);outline-offset:5px}
 @keyframes up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── TEMPLE BORDER ── */
@@ -300,16 +346,24 @@ section{padding:5rem 2rem}
 .celeb-muhurtham{background:rgba(201,162,39,.06);border:1px solid rgba(201,162,39,.15);border-radius:14px;
   padding:1rem 1.2rem;margin:0 0 1.2rem}
 .celeb-rsvp-btn{display:block;width:100%;margin-top:1.8rem;padding:1rem 2rem;
-  background:linear-gradient(135deg,var(--gold) 0%,var(--goldbr) 50%,var(--golddk) 100%);
-  color:var(--night);font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  background:linear-gradient(135deg,#fce98a 0%,#fff4c2 35%,#fffde8 55%,#fce98a 80%,#f5d76e 100%);
+  color:var(--goldbr);font-family:sans-serif;font-size:.95rem;font-weight:900;letter-spacing:.24em;text-transform:uppercase;
+  text-shadow:0 1px 2px rgba(255,255,255,.8),0 0 12px rgba(255,240,120,.9);
   border:none;border-radius:50px;cursor:pointer;
-  box-shadow:0 8px 30px rgba(201,162,39,.25);
+  box-shadow:0 4px 14px rgba(201,162,39,.45),
+             0 8px 36px rgba(201,162,39,.35),
+             0 0 60px rgba(240,208,96,.18),
+             inset 0 1px 0 rgba(255,255,255,.55);
   transition:transform .25s,box-shadow .25s;text-align:center;position:relative;overflow:hidden}
 .celeb-rsvp-btn::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:left .6s ease}
-.celeb-rsvp-btn:hover{transform:translateY(-3px);box-shadow:0 14px 45px rgba(201,162,39,.4)}
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transition:left .6s ease}
+.celeb-rsvp-btn:hover{transform:translateY(-3px);
+  box-shadow:0 6px 20px rgba(201,162,39,.6),
+             0 16px 55px rgba(201,162,39,.45),
+             0 0 90px rgba(240,208,96,.28),
+             inset 0 1px 0 rgba(255,255,255,.55)}
 .celeb-rsvp-btn:hover::after{left:100%}
-.celeb-rsvp-btn:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+.celeb-rsvp-btn:focus-visible{outline:3px solid var(--goldbr);outline-offset:4px}
 
 /* ── GALLERY ── */
 #gallery{background:var(--silk);padding:5rem 2rem}
@@ -370,10 +424,11 @@ section{padding:5rem 2rem}
   transition:border-color .25s ease,background .25s ease,box-shadow .25s ease;
   -webkit-appearance:none;width:100%}
 .fi::placeholder{color:rgba(255,255,255,.3);font-style:italic}
-.fi:focus,.fs:focus{outline:none;border-color:rgba(240,208,96,.6);
+.fi:focus,.fs:focus{outline:none;border-color:rgba(240,208,96,.85);
   background:rgba(255,255,255,.1);
-  box-shadow:0 0 0 4px rgba(201,162,39,.12),0 0 20px rgba(201,162,39,.08)}
-.fi:focus-visible,.fs:focus-visible{outline:2px solid var(--goldbr);outline-offset:3px}
+  box-shadow:inset 0 0 0 1px rgba(240,208,96,.75),
+             0 0 0 4px rgba(201,162,39,.15),0 0 20px rgba(201,162,39,.1)}
+.fi:focus-visible,.fs:focus-visible{outline:none}
 .fi[aria-invalid="true"],.fs[aria-invalid="true"],textarea.fi[aria-invalid="true"]{border-color:#f87171;box-shadow:0 0 0 3px rgba(248,113,113,.15)}
 .ev-fieldset.ev-invalid .ev-checks{border:1px solid #f87171;border-radius:14px;padding:.5rem;box-shadow:0 0 0 3px rgba(248,113,113,.15)}
 .fs{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(240,208,96,0.55)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -816,8 +871,8 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
   .h-profile-detail{text-align:center;font-size:.78rem}
   .h-names{order:1}
   .h-btns{flex-direction:column;align-items:center}
-  .btn-gold,.btn-ghost{width:100%;max-width:280px;text-align:center;
-    min-height:48px;display:flex;align-items:center;justify-content:center;font-size:.72rem}
+  .btn-gold,.btn-ghost{width:100%;max-width:300px;text-align:center;
+    min-height:52px;display:flex;align-items:center;justify-content:center;font-size:.76rem;letter-spacing:.22em}
   #hero > svg[style*="position:absolute"]{opacity:.06 !important}
   .orb1{width:380px;height:380px;top:-100px;right:-100px}
   .orb2{width:280px;height:280px;bottom:-80px;left:-70px}
@@ -1094,11 +1149,11 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
               </defs>
             </svg>
             <div class="h-profile-circle">
-              <img src="pictures/Groom_New.jpeg" alt="Manohar" loading="eager" style="transform-origin:center 55%">
+              <img src="pictures/Groom_1.jpeg" alt="Manohar" loading="eager" style="transform:scale(2.1)">
             </div>
           </div>
           <p class="h-profile-name">Manohar Sai Yadav<br>Chandaka</p>
-          <p class="h-profile-detail">Son of<br><strong>Krishna Chandaka</strong><br>&amp; <strong>Rukmini Chandaka</strong></p>
+          <p class="h-profile-detail">Elder Son of<br><strong>Krishna Chandaka</strong><br>&amp; <strong>Rukmini Chandaka</strong></p>
         </div>
 
         <!-- Bride -->
@@ -1162,7 +1217,7 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
             </div>
           </div>
           <p class="h-profile-name">Manvitha Reddy<br>Pandiri</p>
-          <p class="h-profile-detail">Daughter of<br><strong>Kanakeswara Rao Pandiri</strong><br>&amp; <strong>Kanchana Dumpa</strong></p>
+          <p class="h-profile-detail">Elder Daughter of<br><strong>Kanakeswara Rao Pandiri</strong><br>&amp; <strong>Kanchana Dumpa</strong></p>
         </div>
       </div>
 
@@ -1334,7 +1389,7 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
         </div>
         <div class="celeb-detail">
           <div class="celeb-label"><svg class="celeb-label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Location</div>
-          <a class="celeb-value celeb-link" href="https://maps.google.com/?q=13751+Wadsworth+Park+Dr+suite+102,+Draper,+UT+84020" target="_blank" rel="noopener noreferrer">13751 Wadsworth Park Dr Suite 102, Draper, UT 84020</a>
+          <a class="celeb-value celeb-link" href="https://maps.app.goo.gl/AVNV4J1C4VrEzQwB9" target="_blank" rel="noopener noreferrer">13751 Wadsworth Park Dr Suite 102, Draper, UT 84020</a>
         </div>
         <div class="celeb-detail">
           <div class="celeb-label"><svg class="celeb-label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>Let&#8217;s Meet On</div>
@@ -1423,7 +1478,7 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
 <section id="rsvp" aria-labelledby="rsvp-h">
   <p class="ey rv">You Are Warmly Invited</p>
   <h2 class="st rv" id="rsvp-h">Kindly RSVP</h2>
-  <p class="ss rv">We can&rsquo;t wait to celebrate our big day with you!<br>To help us finalize our arrangements with the venue, we kindly request the favor of your reply as soon as possible, but no later than <strong>March 20th, 2026</strong>.</p>
+  <p class="ss rv">We can&rsquo;t wait to celebrate our big day with you!<br>To help us finalize our arrangements, we kindly request the favor of your reply as soon as possible, but no later than <strong>March 20th, 2026</strong>.</p>
 
   <!-- Ornamental flourish -->
   <div class="rsvp-flourish rv" aria-hidden="true">

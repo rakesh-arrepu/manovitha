@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Admin Portal — Manohar &amp; Manvitha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Infant:ital,wght@0,400;0,600;0,700;1,400&family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+/* ── DESIGN TOKENS ──────────────────────────────────────────────────────── */
+:root {
+  --lav100:#f3e8ff; --lav200:#e9d5ff; --lav300:#d8b4fe;
+  --lav400:#c084fc; --lav500:#a855f7; --lav600:#9333ea;
+  --lav700:#7c3aed; --lav800:#6b21a8; --lav900:#4c1d95;
+  --night:#2d1154; --deep:#1a0933; --muted:#4c1d95;
+  --gold:#c9a227; --goldbr:#f0d060; --golddk:#8b6914;
+  --cream:#fefcf9; --white:#ffffff;
+  --nav-h:64px;
+}
+
+/* ── RESET ─────────────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Cormorant Infant',serif;background:var(--cream);color:var(--night);min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+input,select{font-family:inherit}
+
+/* ── PIN OVERLAY ────────────────────────────────────────────────────────── */
+#pin-overlay{
+  position:fixed;inset:0;z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,var(--deep) 0%,#3b0764 45%,var(--lav900) 100%);
+  transition:opacity .5s ease,visibility .5s ease;
+}
+#pin-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
+
+.pin-card{
+  background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.04));
+  backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  border:1px solid rgba(201,162,39,.28);
+  border-radius:32px;padding:3rem 2.8rem;
+  max-width:440px;width:92%;text-align:center;
+  box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(240,208,96,.18);
+}
+.pin-card.shake{animation:shake .45s ease}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  15%{transform:translateX(-10px)}
+  30%{transform:translateX(10px)}
+  45%{transform:translateX(-8px)}
+  60%{transform:translateX(8px)}
+  75%{transform:translateX(-4px)}
+  90%{transform:translateX(4px)}
+}
+
+.pin-logo{
+  font-family:'Great Vibes',cursive;font-size:clamp(2.2rem,6vw,3rem);
+  color:var(--goldbr);text-shadow:0 2px 20px rgba(201,162,39,.5);
+  line-height:1.1;margin-bottom:.3rem;
+}
+.pin-sub{
+  font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.25em;
+  color:rgba(216,180,254,.75);margin-bottom:1.6rem;
+}
+.pin-divider{
+  display:flex;align-items:center;gap:.8rem;margin:0 auto 1.8rem;
+  max-width:220px;
+}
+.pin-divider::before,.pin-divider::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,162,39,.4),transparent);
+}
+.pin-divider span{color:var(--goldbr);font-size:1rem;opacity:.8}
+
+.pin-label{
+  font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.2em;
+  color:rgba(216,180,254,.65);text-transform:uppercase;margin-bottom:.6rem;display:block;
+}
+#pin-input{
+  width:100%;background:rgba(0,0,0,.35);border:1px solid rgba(201,162,39,.35);
+  border-radius:12px;padding:.9rem 1rem;color:var(--goldbr);
+  font-family:'Cinzel',serif;font-size:1.4rem;letter-spacing:.4em;
+  text-align:center;outline:none;margin-bottom:.5rem;
+  transition:border-color .2s;
+  -webkit-text-security:disc;
+}
+#pin-input:focus{border-color:rgba(201,162,39,.7);box-shadow:0 0 0 3px rgba(201,162,39,.1)}
+#pin-input::placeholder{font-size:.9rem;letter-spacing:.15em;color:rgba(216,180,254,.3)}
+
+#pin-error{
+  font-family:'Cinzel',serif;font-size:.65rem;color:#f87171;
+  letter-spacing:.08em;min-height:1.1rem;margin-bottom:.8rem;
+  transition:opacity .2s;
+}
+.btn-enter{
+  width:100%;background:linear-gradient(135deg,var(--gold),var(--golddk));
+  color:var(--night);font-family:'Cinzel',serif;font-size:.7rem;
+  font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  padding:.95rem 1rem;border-radius:12px;
+  box-shadow:0 4px 20px rgba(201,162,39,.35);
+  transition:transform .15s,box-shadow .15s;
+}
+.btn-enter:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,162,39,.5)}
+.btn-enter:active{transform:translateY(0)}
+
+/* ── DASHBOARD ──────────────────────────────────────────────────────────── */
+#dashboard{display:none;opacity:0;transition:opacity .4s ease .25s}
+#dashboard.visible{opacity:1}
+
+/* ── NAV ────────────────────────────────────────────────────────────────── */
+.admin-nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);
+  background:rgba(26,9,51,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(201,162,39,.2);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;
+}
+.nav-brand{font-family:'Great Vibes',cursive;font-size:1.6rem;color:var(--goldbr)}
+.nav-actions{display:flex;align-items:center;gap:1rem}
+.nav-link{
+  font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;
+  color:var(--lav300);text-transform:uppercase;
+  padding:.4rem .8rem;border:1px solid rgba(216,180,254,.2);
+  border-radius:8px;transition:all .15s;
+}
+.nav-link:hover{color:var(--goldbr);border-color:rgba(201,162,39,.4);background:rgba(201,162,39,.08)}
+.btn-refresh{
+  font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;
+  color:var(--night);background:linear-gradient(135deg,var(--gold),var(--golddk));
+  text-transform:uppercase;padding:.42rem .9rem;border-radius:8px;
+  transition:transform .15s,box-shadow .15s;box-shadow:0 2px 10px rgba(201,162,39,.35);
+}
+.btn-refresh:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,162,39,.5)}
+
+/* ── MAIN CONTENT WRAPPER ───────────────────────────────────────────────── */
+#main-content{padding:calc(var(--nav-h) + 2rem) 2rem 4rem;max-width:1600px;margin:0 auto}
+
+/* ── SECTION HEADERS ────────────────────────────────────────────────────── */
+.sec-head{
+  display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;
+}
+.sec-head h2{
+  font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2.5vw,1.7rem);
+  color:var(--night);font-weight:700;
+}
+.sec-head .orn{color:var(--gold);font-size:1.2rem;opacity:.7}
+.sec-divider{height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:2rem;opacity:.35}
+
+/* ── ERROR BANNER ───────────────────────────────────────────────────────── */
+#error-banner{
+  display:none;background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.4);
+  border-radius:12px;padding:1rem 1.4rem;margin-bottom:2rem;
+  font-family:'Cinzel',serif;font-size:.7rem;color:#f87171;letter-spacing:.05em;
+  align-items:center;justify-content:space-between;gap:1rem;
+}
+#error-banner.visible{display:flex}
+.btn-retry{
+  font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--night);background:linear-gradient(135deg,var(--gold),var(--golddk));
+  padding:.35rem .8rem;border-radius:8px;white-space:nowrap;
+}
+
+/* ── KPI STRIP ──────────────────────────────────────────────────────────── */
+#kpi-strip{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-bottom:1.5rem;
+}
+.kpi-card{
+  background:var(--white);border-radius:20px;padding:1.6rem 1.4rem 1.4rem;
+  position:relative;overflow:hidden;
+  box-shadow:0 4px 24px rgba(45,17,84,.07);
+  border:1px solid rgba(45,17,84,.06);
+}
+.kpi-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  border-radius:20px 20px 0 0;
+}
+.kpi-gold::before{background:linear-gradient(90deg,var(--gold),var(--goldbr))}
+.kpi-lav::before{background:linear-gradient(90deg,var(--lav500),var(--lav300))}
+.kpi-green::before{background:linear-gradient(90deg,#22c55e,#4ade80)}
+.kpi-muted::before{background:linear-gradient(90deg,var(--lav800),var(--lav600))}
+
+.kpi-icon{
+  position:absolute;top:1.2rem;right:1.2rem;
+  font-size:1.6rem;opacity:.15;
+}
+.kpi-value{
+  font-family:'Cinzel',serif;font-size:clamp(2rem,4vw,2.8rem);
+  font-weight:700;color:var(--night);line-height:1;margin-bottom:.4rem;
+}
+.kpi-label{
+  font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);
+}
+
+/* skeleton */
+.skel{
+  background:linear-gradient(90deg,var(--lav100) 25%,var(--lav200) 50%,var(--lav100) 75%);
+  background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:6px;
+}
+@keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+.skel-val{height:2.5rem;width:60%;margin-bottom:.5rem}
+.skel-lbl{height:.75rem;width:80%}
+
+/* ── BREAKDOWN STRIP ────────────────────────────────────────────────────── */
+#breakdown-strip{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:2.5rem;
+}
+.bd-card{
+  background:var(--white);border-radius:20px;padding:1.6rem 1.8rem;
+  box-shadow:0 4px 24px rgba(45,17,84,.07);border:1px solid rgba(45,17,84,.06);
+  display:flex;flex-direction:column;gap:.8rem;
+}
+.bd-title{
+  font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);
+}
+.bd-num{
+  font-family:'Cinzel',serif;font-size:clamp(1.6rem,3vw,2.2rem);
+  font-weight:700;color:var(--night);
+}
+.bd-bar-wrap{height:8px;background:var(--lav100);border-radius:99px;overflow:hidden}
+.bd-bar{height:100%;border-radius:99px;transition:width .8s ease;width:0}
+.bd-cocktail .bd-bar{background:linear-gradient(90deg,var(--gold),var(--goldbr))}
+.bd-wedding .bd-bar{background:linear-gradient(90deg,var(--lav500),var(--lav300))}
+.bd-sub{font-family:'Cormorant Infant',serif;font-size:.85rem;color:var(--muted);opacity:.7}
+
+/* ── CHARTS GRID ────────────────────────────────────────────────────────── */
+#charts-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1.25rem;margin-bottom:2.5rem;
+}
+.chart-card{
+  background:var(--white);border-radius:20px;padding:1.6rem;
+  box-shadow:0 4px 24px rgba(45,17,84,.07);border:1px solid rgba(45,17,84,.06);
+}
+.chart-card.wide{grid-column:1/-1}
+.chart-title{
+  font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.chart-title .dot{
+  width:8px;height:8px;border-radius:50%;display:inline-block;
+}
+.chart-wrap{position:relative;height:260px}
+.chart-card.wide .chart-wrap{height:200px}
+
+/* ── TABLE SECTION ──────────────────────────────────────────────────────── */
+#table-section{
+  background:var(--white);border-radius:20px;padding:1.8rem;
+  box-shadow:0 4px 24px rgba(45,17,84,.07);border:1px solid rgba(45,17,84,.06);
+  margin-bottom:2.5rem;
+}
+.table-controls{
+  display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-bottom:1.4rem;
+}
+.table-controls .sec-head{margin-bottom:0;flex-shrink:0}
+.tbl-search{
+  flex:1;min-width:180px;max-width:280px;
+  background:var(--lav100);border:1px solid rgba(45,17,84,.1);
+  border-radius:10px;padding:.55rem 1rem;
+  font-family:'Cormorant Infant',serif;font-size:.95rem;color:var(--night);
+  outline:none;transition:border-color .2s;
+}
+.tbl-search:focus{border-color:var(--lav400)}
+.tbl-select{
+  background:var(--lav100);border:1px solid rgba(45,17,84,.1);
+  border-radius:10px;padding:.55rem .8rem;
+  font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.1em;
+  color:var(--night);outline:none;cursor:pointer;
+}
+.tbl-count{
+  font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;
+  color:var(--muted);background:var(--lav100);padding:.4rem .8rem;
+  border-radius:8px;white-space:nowrap;
+}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead th{
+  font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--muted);
+  padding:.8rem 1rem;text-align:left;border-bottom:2px solid var(--lav200);
+  white-space:nowrap;
+}
+thead th.sortable{cursor:pointer;user-select:none;transition:color .15s}
+thead th.sortable:hover{color:var(--night)}
+thead th.sortable .sort-icon::after{content:' ⇅';opacity:.3}
+thead th.sort-asc .sort-icon::after{content:' ↑';opacity:1}
+thead th.sort-desc .sort-icon::after{content:' ↓';opacity:1}
+tbody tr{transition:background .1s}
+tbody tr:hover{background:rgba(168,85,247,.04)}
+tbody td{
+  padding:.75rem 1rem;font-size:.95rem;color:var(--night);
+  border-bottom:1px solid rgba(45,17,84,.05);vertical-align:middle;
+}
+td.td-name{font-weight:600}
+td.td-center{text-align:center}
+td.td-date{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.05em;color:var(--muted)}
+.empty-row{text-align:center;padding:2.5rem 1rem;font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.1em;color:var(--muted)}
+
+/* Badges */
+.badge{
+  font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.1em;
+  text-transform:uppercase;padding:.28rem .65rem;border-radius:99px;
+  font-weight:600;white-space:nowrap;
+}
+.badge-gold{background:rgba(201,162,39,.15);color:var(--golddk)}
+.badge-lav{background:rgba(168,85,247,.12);color:var(--lav700)}
+.badge-muted{background:var(--lav100);color:var(--muted)}
+.badge-form-cocktail{background:rgba(201,162,39,.12);color:var(--golddk)}
+.badge-form-wedding{background:rgba(168,85,247,.12);color:var(--lav700)}
+
+/* ── MESSAGES WALL ──────────────────────────────────────────────────────── */
+#messages-section{margin-bottom:2.5rem}
+.messages-grid{
+  columns:2;column-gap:1.25rem;
+}
+.message-card{
+  break-inside:avoid;margin-bottom:1.25rem;
+  background:var(--white);border-radius:16px;padding:1.4rem 1.4rem 1.2rem;
+  border-left:3px solid var(--gold);
+  box-shadow:0 2px 16px rgba(45,17,84,.06);
+}
+.message-text{
+  font-family:'Cormorant Infant',serif;font-size:1.05rem;font-style:italic;
+  color:var(--night);line-height:1.6;margin-bottom:.8rem;
+  quotes:"\201C""\201D";
+}
+.message-text::before{content:open-quote;color:var(--gold);font-size:1.3em;line-height:0;vertical-align:-.2em;margin-right:.15em}
+.message-text::after{content:close-quote;color:var(--gold);font-size:1.3em;line-height:0;vertical-align:-.2em;margin-left:.15em}
+.message-footer{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.message-author{
+  font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);
+}
+.empty-note{
+  font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.15em;
+  color:var(--muted);opacity:.6;text-align:center;padding:2rem;
+}
+
+/* ── DJ / SONGS ─────────────────────────────────────────────────────────── */
+#dj-section{
+  background:var(--white);border-radius:20px;padding:1.8rem;
+  box-shadow:0 4px 24px rgba(45,17,84,.07);border:1px solid rgba(45,17,84,.06);
+  margin-bottom:2.5rem;
+}
+.song-list{list-style:none;display:flex;flex-direction:column;gap:.9rem}
+.song-item{
+  display:flex;align-items:flex-start;gap:1rem;
+  padding:.9rem 1rem;border-radius:12px;
+  background:rgba(168,85,247,.03);border:1px solid rgba(45,17,84,.05);
+}
+.song-num{
+  font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;
+  color:var(--gold);min-width:1.8rem;padding-top:.1rem;
+}
+.song-content{flex:1}
+.song-primary{
+  font-family:'Cormorant Infant',serif;font-size:1.05rem;font-weight:600;
+  color:var(--night);display:block;
+}
+.song-secondary{
+  font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.1em;
+  color:var(--muted);opacity:.7;
+}
+.song-dance{
+  font-family:'Cormorant Infant',serif;font-size:.85rem;font-style:italic;
+  color:var(--lav600);margin-top:.25rem;display:block;
+}
+
+/* ── GODS SECTION ───────────────────────────────────────────────────────── */
+#gods-section{
+  background:var(--white);border-radius:20px;padding:1.8rem;
+  box-shadow:0 4px 24px rgba(45,17,84,.07);border:1px solid rgba(45,17,84,.06);
+  margin-bottom:2.5rem;
+}
+.gods-cloud{display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:2rem}
+.god-pill{
+  display:flex;align-items:center;gap:.5rem;
+  font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--night);
+  background:linear-gradient(135deg,rgba(201,162,39,.12),rgba(168,85,247,.08));
+  border:1px solid rgba(201,162,39,.25);border-radius:99px;
+  padding:.4rem .9rem;
+}
+.god-count{
+  background:var(--gold);color:var(--night);font-weight:700;
+  font-size:.55rem;padding:.1rem .45rem;border-radius:99px;
+}
+.gods-list{display:flex;flex-direction:column;gap:.5rem}
+.god-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.6rem 1rem;border-radius:10px;background:rgba(45,17,84,.02);
+}
+.god-name{font-family:'Cormorant Infant',serif;font-size:1rem;font-weight:600;color:var(--night)}
+.god-guest{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;color:var(--muted)}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
+@media(max-width:1100px){
+  #charts-grid{grid-template-columns:repeat(2,1fr)}
+  .chart-card.wide{grid-column:1/-1}
+}
+@media(max-width:800px){
+  #main-content{padding:calc(var(--nav-h) + 1.5rem) 1.2rem 3rem}
+  #kpi-strip{grid-template-columns:repeat(2,1fr)}
+  .admin-nav{padding:0 1.2rem}
+  .nav-brand{font-size:1.3rem}
+}
+@media(max-width:640px){
+  #charts-grid{grid-template-columns:1fr}
+  #breakdown-strip{grid-template-columns:1fr}
+  .messages-grid{columns:1}
+  .table-controls{flex-direction:column;align-items:flex-start}
+  .tbl-search{max-width:100%;width:100%}
+}
+@media(max-width:480px){
+  #kpi-strip{grid-template-columns:1fr}
+  .pin-card{padding:2rem 1.4rem}
+  .pin-logo{font-size:2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════ PIN GATE -->
+<div id="pin-overlay">
+  <div class="pin-card" id="pin-card">
+    <div class="pin-logo">Manohar &amp; Manvitha</div>
+    <div class="pin-sub">Admin Portal · May 3, 2026</div>
+    <div class="pin-divider"><span>✦</span></div>
+    <form id="pin-form" autocomplete="off">
+      <label class="pin-label" for="pin-input">Enter Access PIN</label>
+      <input type="password" id="pin-input" inputmode="numeric"
+             maxlength="4" placeholder="· · · ·" autocomplete="off" autofocus/>
+      <div id="pin-error" aria-live="polite"></div>
+      <button type="submit" class="btn-enter">Enter Dashboard</button>
+    </form>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ DASHBOARD (hidden init) -->
+<div id="dashboard">
+
+  <!-- NAV -->
+  <nav class="admin-nav">
+    <span class="nav-brand">M &amp; M Admin</span>
+    <div class="nav-actions">
+      <a href="manohar-manvitha.html" class="nav-link">← Wedding Site</a>
+      <button class="btn-refresh" id="btn-refresh">↺ Refresh</button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- Error banner -->
+    <div id="error-banner">
+      <span id="error-msg">Failed to load data.</span>
+      <button class="btn-retry" id="btn-retry">Retry</button>
+    </div>
+
+    <!-- ── KPI STRIP -->
+    <div class="sec-head" style="margin-bottom:1rem">
+      <div class="orn">✦</div>
+      <h2>Overview</h2>
+    </div>
+    <div id="kpi-strip">
+      <div class="kpi-card kpi-gold"><div class="kpi-icon">💌</div><div class="kpi-value" id="kpi-total"><div class="skel skel-val"></div></div><div class="kpi-label">Total RSVPs</div></div>
+      <div class="kpi-card kpi-lav"><div class="kpi-icon">🎉</div><div class="kpi-value" id="kpi-attending"><div class="skel skel-val"></div></div><div class="kpi-label">Attending</div></div>
+      <div class="kpi-card kpi-green"><div class="kpi-icon">👥</div><div class="kpi-value" id="kpi-guests"><div class="skel skel-val"></div></div><div class="kpi-label">Total Guests</div></div>
+      <div class="kpi-card kpi-muted"><div class="kpi-icon">🙏</div><div class="kpi-value" id="kpi-blessings"><div class="skel skel-val"></div></div><div class="kpi-label">Sending Blessings</div></div>
+    </div>
+
+    <!-- ── BREAKDOWN STRIP -->
+    <div id="breakdown-strip" style="margin-top:1.25rem">
+      <div class="bd-card bd-cocktail">
+        <div class="bd-title">🥂 Cocktail RSVPs</div>
+        <div class="bd-num" id="bd-cocktail-num">—</div>
+        <div class="bd-bar-wrap"><div class="bd-bar" id="bd-cocktail-bar"></div></div>
+        <div class="bd-sub" id="bd-cocktail-sub"></div>
+      </div>
+      <div class="bd-card bd-wedding">
+        <div class="bd-title">💍 Wedding RSVPs</div>
+        <div class="bd-num" id="bd-wedding-num">—</div>
+        <div class="bd-bar-wrap"><div class="bd-bar" id="bd-wedding-bar"></div></div>
+        <div class="bd-sub" id="bd-wedding-sub"></div>
+      </div>
+    </div>
+
+    <!-- ── CHARTS GRID -->
+    <div class="sec-divider" style="margin-top:2.5rem"></div>
+    <div class="sec-head"><div class="orn">✦</div><h2>Analytics</h2></div>
+    <div id="charts-grid">
+      <div class="chart-card">
+        <div class="chart-title"><span class="dot" style="background:var(--gold)"></span>Attendance Breakdown</div>
+        <div class="chart-wrap"><canvas id="chart-attendance"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title"><span class="dot" style="background:#4ade80"></span>Meal Preference</div>
+        <div class="chart-wrap"><canvas id="chart-meal"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title"><span class="dot" style="background:var(--lav500)"></span>Drink Preference</div>
+        <div class="chart-wrap"><canvas id="chart-drink"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title"><span class="dot" style="background:#f97316"></span>Dance Willingness</div>
+        <div class="chart-wrap"><canvas id="chart-dance"></canvas></div>
+      </div>
+      <div class="chart-card wide">
+        <div class="chart-title"><span class="dot" style="background:var(--goldbr)"></span>RSVPs Over Time</div>
+        <div class="chart-wrap"><canvas id="chart-timeline"></canvas></div>
+      </div>
+    </div>
+
+    <!-- ── GUESTS TABLE -->
+    <div class="sec-divider"></div>
+    <div id="table-section">
+      <div class="table-controls">
+        <div class="sec-head"><div class="orn">✦</div><h2>All RSVPs</h2></div>
+        <input type="search" id="tbl-search" class="tbl-search" placeholder="Search name…"/>
+        <select id="tbl-form" class="tbl-select">
+          <option value="">All Forms</option>
+          <option value="cocktail">Cocktail</option>
+          <option value="wedding">Wedding</option>
+        </select>
+        <select id="tbl-attend" class="tbl-select">
+          <option value="">All Attendance</option>
+          <option value="joyfully">Joyfully</option>
+          <option value="trying">Trying</option>
+          <option value="blessings">Blessings</option>
+        </select>
+        <span class="tbl-count" id="tbl-count">—</span>
+      </div>
+      <div class="table-wrap">
+        <table aria-label="Guest RSVP submissions">
+          <thead>
+            <tr>
+              <th scope="col" class="sortable" data-col="name">Name<span class="sort-icon"></span></th>
+              <th scope="col" class="sortable" data-col="formType">Form<span class="sort-icon"></span></th>
+              <th scope="col" class="sortable" data-col="attendance">Attendance<span class="sort-icon"></span></th>
+              <th scope="col" class="sortable td-center" data-col="guestCount">Guests<span class="sort-icon"></span></th>
+              <th scope="col">Meal</th>
+              <th scope="col">Drink</th>
+              <th scope="col" class="sortable" data-col="dance">Dance<span class="sort-icon"></span></th>
+              <th scope="col">Bangle</th>
+              <th scope="col" class="sortable" data-col="timestamp">Submitted<span class="sort-icon"></span></th>
+            </tr>
+          </thead>
+          <tbody id="guests-tbody">
+            <tr><td colspan="9" class="empty-row">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── MESSAGES WALL -->
+    <div class="sec-divider"></div>
+    <div id="messages-section">
+      <div class="sec-head"><div class="orn">✦</div><h2>Guest Messages</h2></div>
+      <div class="messages-grid" id="messages-grid">
+        <div class="empty-note">Loading…</div>
+      </div>
+    </div>
+
+    <!-- ── DJ SONGS -->
+    <div class="sec-divider"></div>
+    <div id="dj-section">
+      <div class="sec-head" style="margin-bottom:1.2rem"><div class="orn">✦</div><h2>DJ Song Requests</h2></div>
+      <ul class="song-list" id="dj-list">
+        <li class="empty-note">Loading…</li>
+      </ul>
+    </div>
+
+    <!-- ── FAVORITE GODS -->
+    <div class="sec-divider"></div>
+    <div id="gods-section">
+      <div class="sec-head" style="margin-bottom:1.2rem"><div class="orn">✦</div><h2>Favorite Deities</h2></div>
+      <div class="gods-cloud" id="gods-cloud"></div>
+      <div class="gods-list" id="gods-list"></div>
+    </div>
+
+  </main><!-- /main-content -->
+</div><!-- /dashboard -->
+
+<script>
+/* ── CONSTANTS ──────────────────────────────────────────────────────────── */
+const ADMIN_PIN = '2026';
+const API = 'https://script.google.com/macros/s/AKfycbx4nmhNXcF3-0BErCbAIOFotPefvQhwUoPO8IYggiD1f__0L7BzkUpFCNAG1RgMwXTw/exec';
+
+/* ── STATE ──────────────────────────────────────────────────────────────── */
+let allGuests = [];
+let sortCol = 'timestamp', sortDir = 'desc';
+let charts = {};
+
+/* ── HELPERS ────────────────────────────────────────────────────────────── */
+function escapeHtml(str) {
+  const s = document.createElement('span');
+  s.textContent = String(str || '');
+  return s.innerHTML;
+}
+
+function fmt(val) { return val || '—'; }
+
+/* ── PIN GATE ───────────────────────────────────────────────────────────── */
+const pinOverlay = document.getElementById('pin-overlay');
+const pinCard    = document.getElementById('pin-card');
+const pinInput   = document.getElementById('pin-input');
+const pinError   = document.getElementById('pin-error');
+const dashboard  = document.getElementById('dashboard');
+
+document.getElementById('pin-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const entered = pinInput.value.trim();
+  if (entered !== ADMIN_PIN) {
+    pinCard.classList.remove('shake');
+    void pinCard.offsetWidth; // reflow to restart animation
+    pinCard.classList.add('shake');
+    pinError.textContent = 'Incorrect PIN. Please try again.';
+    pinInput.value = '';
+    pinInput.focus();
+    return;
+  }
+  pinOverlay.classList.add('hidden');
+  dashboard.style.display = 'block';
+  // rAF double-frame ensures display:block paints before opacity transition fires
+  requestAnimationFrame(() => requestAnimationFrame(() => dashboard.classList.add('visible')));
+  fetchAdminData();
+});
+pinInput.addEventListener('input', () => {
+  pinError.textContent = '';
+  // Auto-submit on 4 digits
+  if (pinInput.value.length === 4) document.getElementById('pin-form').requestSubmit();
+});
+
+/* ── REFRESH / RETRY ────────────────────────────────────────────────────── */
+document.getElementById('btn-refresh').addEventListener('click', fetchAdminData);
+document.getElementById('btn-retry').addEventListener('click', fetchAdminData);
+
+/* ── DATA FETCH ─────────────────────────────────────────────────────────── */
+async function fetchAdminData() {
+  const btn = document.getElementById('btn-refresh');
+  btn.disabled = true;
+  btn.textContent = '↺ Loading…';
+  hideErrorBanner();
+  showSkeletons();
+  try {
+    const res  = await fetch(`${API}?action=admin&pin=${ADMIN_PIN}`);
+    const json = await res.json();
+    if (json.status !== 'ok') throw new Error(json.message || 'Unknown error');
+    allGuests = json.guests || [];
+    const stats = computeStats(allGuests);
+    renderKPIs(stats);
+    renderBreakdown(stats);
+    renderCharts(stats);
+    renderTable(allGuests);
+    renderMessagesWall(allGuests);
+    renderDJSongs(allGuests);
+    renderFavoriteGods(allGuests);
+    // Last-refreshed timestamp
+    const now = new Date();
+    btn.title = `Last refreshed: ${now.toLocaleTimeString()}`;
+  } catch (err) {
+    showErrorBanner('Failed to load data: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '↺ Refresh';
+  }
+}
+
+/* ── STATS AGGREGATION ──────────────────────────────────────────────────── */
+function computeStats(guests) {
+  const total      = guests.length;
+  const joyfully   = guests.filter(g => g.attendance === 'joyfully').length;
+  const trying     = guests.filter(g => g.attendance === 'trying').length;
+  const blessings  = guests.filter(g => g.attendance === 'blessings').length;
+  const attending  = joyfully + trying;
+  const totalGuests = guests.reduce((s, g) => s + (parseInt(g.guestCount) || 0), 0);
+  const cocktail   = guests.filter(g => g.formType === 'cocktail');
+  const wedding    = guests.filter(g => g.formType === 'wedding');
+  const veg        = cocktail.filter(g => g.meal  === 'veg').length;
+  const nonveg     = cocktail.filter(g => g.meal  === 'nonveg').length;
+  const cDrink     = cocktail.filter(g => g.drink === 'cocktail').length;
+  const mocktail   = cocktail.filter(g => g.drink === 'mocktail').length;
+  const danceYes   = cocktail.filter(g => g.dance === 'yes').length;
+  const danceMaybe = cocktail.filter(g => g.dance === 'maybe').length;
+  const danceNo    = cocktail.filter(g => g.dance === 'no').length;
+
+  const byDate = {};
+  guests.forEach(g => {
+    const d = g.timestamp ? g.timestamp.slice(0, 10) : 'Unknown';
+    byDate[d] = (byDate[d] || 0) + 1;
+  });
+  const sortedDates = Object.keys(byDate).sort();
+
+  return {
+    total, joyfully, trying, blessings, attending, totalGuests,
+    cocktailCount: cocktail.length, weddingCount: wedding.length,
+    veg, nonveg, cDrink, mocktail,
+    danceYes, danceMaybe, danceNo,
+    byDate, sortedDates
+  };
+}
+
+/* ── RENDER: KPI CARDS ──────────────────────────────────────────────────── */
+function renderKPIs(stats) {
+  document.getElementById('kpi-total').textContent     = stats.total;
+  document.getElementById('kpi-attending').textContent = stats.attending;
+  document.getElementById('kpi-guests').textContent    = stats.totalGuests;
+  document.getElementById('kpi-blessings').textContent = stats.blessings;
+}
+
+/* ── RENDER: BREAKDOWN STRIP ────────────────────────────────────────────── */
+function renderBreakdown(stats) {
+  const t = stats.total || 1;
+  document.getElementById('bd-cocktail-num').textContent = stats.cocktailCount;
+  document.getElementById('bd-wedding-num').textContent  = stats.weddingCount;
+  document.getElementById('bd-cocktail-sub').textContent = `${Math.round(stats.cocktailCount / t * 100)}% of total RSVPs`;
+  document.getElementById('bd-wedding-sub').textContent  = `${Math.round(stats.weddingCount  / t * 100)}% of total RSVPs`;
+  // rAF double-frame ensures element is painted at width:0 before transition fires
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.getElementById('bd-cocktail-bar').style.width = Math.round(stats.cocktailCount / t * 100) + '%';
+    document.getElementById('bd-wedding-bar').style.width  = Math.round(stats.weddingCount  / t * 100) + '%';
+  }));
+}
+
+/* ── RENDER: CHARTS ─────────────────────────────────────────────────────── */
+const CHART_DEFAULTS = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: { legend: { labels: { font: { family: 'Cinzel', size: 11 }, color: '#2d1154', padding: 14 } } },
+  animation: { duration: 700 }
+};
+
+function destroyChart(key) {
+  if (charts[key]) { charts[key].destroy(); charts[key] = null; }
+}
+
+function renderCharts(s) {
+  // 1 — Attendance pie
+  destroyChart('attendance');
+  charts.attendance = new Chart(document.getElementById('chart-attendance'), {
+    type: 'pie',
+    data: {
+      labels: ['Joyfully Attending', 'Trying to Make It', 'Sending Blessings'],
+      datasets: [{ data: [s.joyfully, s.trying, s.blessings],
+        backgroundColor: ['#c9a227', '#a855f7', '#d8b4fe'],
+        borderColor: '#fefcf9', borderWidth: 3 }]
+    },
+    options: {
+      ...CHART_DEFAULTS,
+      plugins: {
+        ...CHART_DEFAULTS.plugins,
+        tooltip: { callbacks: { label: ctx => {
+          const pct = s.total ? Math.round(ctx.parsed / s.total * 100) : 0;
+          return ` ${ctx.label}: ${ctx.parsed} (${pct}%)`;
+        }}}
+      }
+    }
+  });
+
+  // 2 — Meal doughnut
+  destroyChart('meal');
+  charts.meal = new Chart(document.getElementById('chart-meal'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Vegetarian', 'Non-Vegetarian'],
+      datasets: [{ data: [s.veg, s.nonveg],
+        backgroundColor: ['#4ade80', '#f97316'],
+        borderColor: '#fefcf9', borderWidth: 3, hoverOffset: 8 }]
+    },
+    options: {
+      ...CHART_DEFAULTS,
+      cutout: '62%',
+      plugins: {
+        ...CHART_DEFAULTS.plugins,
+        tooltip: { callbacks: { label: ctx => {
+          const tot = s.veg + s.nonveg;
+          const pct = tot ? Math.round(ctx.parsed / tot * 100) : 0;
+          return ` ${ctx.label}: ${ctx.parsed} (${pct}%)`;
+        }}},
+        centerText: { total: s.veg + s.nonveg, label: 'GUESTS' }
+      }
+    }
+  });
+
+  // 3 — Drink bar (horizontal)
+  destroyChart('drink');
+  charts.drink = new Chart(document.getElementById('chart-drink'), {
+    type: 'bar',
+    data: {
+      labels: ['Cocktail', 'Mocktail'],
+      datasets: [{ label: 'Guests', data: [s.cDrink, s.mocktail],
+        backgroundColor: ['rgba(201,162,39,.75)', 'rgba(168,85,247,.75)'],
+        borderColor: ['#c9a227', '#a855f7'],
+        borderWidth: 2, borderRadius: 8 }]
+    },
+    options: {
+      ...CHART_DEFAULTS,
+      indexAxis: 'y',
+      scales: {
+        x: { beginAtZero: true, ticks: { font: { family: 'Cinzel', size: 10 }, color: '#4c1d95', stepSize: 1 }, grid: { color: 'rgba(45,17,84,.05)' } },
+        y: { grid: { display: false }, ticks: { font: { family: 'Cinzel', size: 11 }, color: '#2d1154' } }
+      },
+      plugins: { ...CHART_DEFAULTS.plugins, legend: { display: false } }
+    }
+  });
+
+  // 4 — Dance bar
+  destroyChart('dance');
+  charts.dance = new Chart(document.getElementById('chart-dance'), {
+    type: 'bar',
+    data: {
+      labels: ['Yes! 💃', 'Maybe 🤔', 'No 🙅'],
+      datasets: [{ label: 'Guests', data: [s.danceYes, s.danceMaybe, s.danceNo],
+        backgroundColor: ['rgba(201,162,39,.8)', 'rgba(168,85,247,.65)', 'rgba(76,29,149,.5)'],
+        borderColor: ['#c9a227', '#a855f7', '#4c1d95'],
+        borderWidth: 2, borderRadius: 8 }]
+    },
+    options: {
+      ...CHART_DEFAULTS,
+      scales: {
+        y: { beginAtZero: true, ticks: { font: { family: 'Cinzel', size: 10 }, color: '#4c1d95', stepSize: 1 }, grid: { color: 'rgba(45,17,84,.05)' } },
+        x: { grid: { display: false }, ticks: { font: { family: 'Cinzel', size: 11 }, color: '#2d1154' } }
+      },
+      plugins: { ...CHART_DEFAULTS.plugins, legend: { display: false } }
+    }
+  });
+
+  // 5 — Timeline line
+  destroyChart('timeline');
+  charts.timeline = new Chart(document.getElementById('chart-timeline'), {
+    type: 'line',
+    data: {
+      labels: s.sortedDates,
+      datasets: [{ label: 'RSVPs received',
+        data: s.sortedDates.map(d => s.byDate[d]),
+        borderColor: '#c9a227',
+        backgroundColor: 'rgba(201,162,39,.08)',
+        borderWidth: 2.5, pointBackgroundColor: '#a855f7',
+        pointBorderColor: '#fefcf9', pointBorderWidth: 2,
+        pointRadius: 5, fill: true, tension: 0.4 }]
+    },
+    options: {
+      ...CHART_DEFAULTS,
+      scales: {
+        y: { beginAtZero: true, ticks: { stepSize: 1, font: { family: 'Cinzel', size: 10 }, color: '#4c1d95' }, grid: { color: 'rgba(45,17,84,.05)' } },
+        x: { grid: { display: false }, ticks: { font: { family: 'Cinzel', size: 9 }, color: '#4c1d95', maxRotation: 45 } }
+      },
+      plugins: {
+        ...CHART_DEFAULTS.plugins,
+        legend: { display: false },
+        tooltip: { callbacks: { title: ctx => ctx[0].label, label: ctx => ` ${ctx.parsed.y} RSVP${ctx.parsed.y !== 1 ? 's' : ''}` } }
+      }
+    }
+  });
+}
+
+// Doughnut center text plugin
+Chart.register({
+  id: 'centerText',
+  afterDraw(chart) {
+    if (chart.config.type !== 'doughnut') return;
+    const opts = chart.options.plugins.centerText;
+    if (!opts) return;
+    const { ctx, chartArea } = chart;
+    if (!chartArea) return;
+    const cx = (chartArea.left + chartArea.right) / 2;
+    const cy = (chartArea.top + chartArea.bottom) / 2;
+    ctx.save();
+    ctx.font = 'bold 26px Cinzel, serif';
+    ctx.fillStyle = '#2d1154';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(opts.total, cx, cy - 9);
+    ctx.font = '10px Cinzel, serif';
+    ctx.fillStyle = '#7c3aed';
+    ctx.fillText(opts.label, cx, cy + 14);
+    ctx.restore();
+  }
+});
+
+/* ── RENDER: TABLE ──────────────────────────────────────────────────────── */
+function renderTable(guests) {
+  applyFiltersAndSort(guests);
+
+  // Wire controls (once)
+  if (!renderTable._wired) {
+    ['tbl-search', 'tbl-form', 'tbl-attend'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => applyFiltersAndSort(allGuests));
+    });
+    document.querySelectorAll('thead th.sortable').forEach(th => {
+      th.addEventListener('click', () => {
+        const col = th.dataset.col;
+        sortDir = (sortCol === col && sortDir === 'asc') ? 'desc' : 'asc';
+        sortCol = col;
+        document.querySelectorAll('thead th.sortable').forEach(t => t.classList.remove('sort-asc','sort-desc'));
+        th.classList.add('sort-' + sortDir);
+        applyFiltersAndSort(allGuests);
+      });
+    });
+    renderTable._wired = true;
+  }
+}
+
+function applyFiltersAndSort(guests) {
+  const search  = document.getElementById('tbl-search').value.toLowerCase().trim();
+  const form    = document.getElementById('tbl-form').value;
+  const attend  = document.getElementById('tbl-attend').value;
+
+  let filtered = guests.filter(g => {
+    if (form   && g.formType   !== form)   return false;
+    if (attend && g.attendance !== attend) return false;
+    if (search && !String(g.name||'').toLowerCase().includes(search)) return false;
+    return true;
+  });
+
+  filtered.sort((a, b) => {
+    let va = a[sortCol] ?? '', vb = b[sortCol] ?? '';
+    if (sortCol === 'guestCount') { va = parseInt(va)||0; vb = parseInt(vb)||0; }
+    const cmp = va < vb ? -1 : va > vb ? 1 : 0;
+    return sortDir === 'asc' ? cmp : -cmp;
+  });
+
+  renderTableRows(filtered);
+  document.getElementById('tbl-count').textContent = `${filtered.length} of ${guests.length}`;
+}
+
+function renderTableRows(rows) {
+  const tbody = document.getElementById('guests-tbody');
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="9" class="empty-row">No guests match the current filters.</td></tr>';
+    return;
+  }
+  const ATTEND_BADGE = {
+    joyfully:  '<span class="badge badge-gold">Joyfully</span>',
+    trying:    '<span class="badge badge-lav">Trying</span>',
+    blessings: '<span class="badge badge-muted">Blessings</span>'
+  };
+  tbody.innerHTML = rows.map(g => {
+    const date = g.timestamp ? g.timestamp.slice(0,10) : '—';
+    return `<tr>
+      <td class="td-name">${escapeHtml(g.name)}</td>
+      <td><span class="badge badge-form-${escapeHtml(g.formType)}">${escapeHtml(g.formType)}</span></td>
+      <td>${ATTEND_BADGE[g.attendance] || escapeHtml(g.attendance)}</td>
+      <td class="td-center">${fmt(g.guestCount)}</td>
+      <td>${fmt(g.meal)}</td>
+      <td>${fmt(g.drink)}</td>
+      <td>${fmt(g.dance)}</td>
+      <td>${escapeHtml(g.bangleSize) || '—'}</td>
+      <td class="td-date">${date}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* ── RENDER: MESSAGES WALL ──────────────────────────────────────────────── */
+function renderMessagesWall(guests) {
+  const grid = document.getElementById('messages-grid');
+  const msgs = guests.filter(g => g.message && g.message.trim());
+  if (!msgs.length) {
+    grid.innerHTML = '<p class="empty-note">No messages yet.</p>';
+    return;
+  }
+  grid.innerHTML = msgs.map(g => `
+    <div class="message-card">
+      <p class="message-text">${escapeHtml(g.message)}</p>
+      <div class="message-footer">
+        <cite class="message-author">— ${escapeHtml(g.name)}</cite>
+        <span class="badge badge-form-${escapeHtml(g.formType)}">${escapeHtml(g.formType)}</span>
+      </div>
+    </div>`).join('');
+}
+
+/* ── RENDER: DJ SONGS ───────────────────────────────────────────────────── */
+function renderDJSongs(guests) {
+  const list = document.getElementById('dj-list');
+  const songs = guests.filter(g => g.djSong && g.djSong.trim());
+  if (!songs.length) {
+    list.innerHTML = '<li class="empty-note">No song requests yet.</li>';
+    return;
+  }
+  list.innerHTML = songs.map((g, i) => `
+    <li class="song-item">
+      <span class="song-num">${i + 1}</span>
+      <div class="song-content">
+        <span class="song-primary">${escapeHtml(g.djSong)}</span>
+        <span class="song-secondary">— ${escapeHtml(g.name)}</span>
+        ${g.danceSong && g.danceSong.trim()
+          ? `<span class="song-dance">Dance request: "${escapeHtml(g.danceSong)}"</span>`
+          : ''}
+      </div>
+    </li>`).join('');
+}
+
+/* ── RENDER: FAVORITE GODS ──────────────────────────────────────────────── */
+function renderFavoriteGods(guests) {
+  const cloud = document.getElementById('gods-cloud');
+  const detail = document.getElementById('gods-list');
+  const godsGuests = guests.filter(g => g.favoriteGod && g.favoriteGod.trim());
+
+  if (!godsGuests.length) {
+    cloud.innerHTML = '<p class="empty-note">No deity preferences yet.</p>';
+    detail.innerHTML = '';
+    return;
+  }
+
+  // Frequency count
+  const freq = {};
+  godsGuests.forEach(g => {
+    const k = g.favoriteGod.trim();
+    freq[k] = (freq[k] || 0) + 1;
+  });
+  const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
+
+  cloud.innerHTML = sorted.map(([god, count]) => `
+    <span class="god-pill">
+      ${escapeHtml(god)}
+      <span class="god-count">${count}</span>
+    </span>`).join('');
+
+  detail.innerHTML = godsGuests.map(g => `
+    <div class="god-item">
+      <span class="god-name">${escapeHtml(g.favoriteGod)}</span>
+      <span class="god-guest">${escapeHtml(g.name)}</span>
+    </div>`).join('');
+}
+
+/* ── SKELETON / ERROR STATES ────────────────────────────────────────────── */
+function showSkeletons() {
+  ['kpi-total','kpi-attending','kpi-guests','kpi-blessings'].forEach(id => {
+    document.getElementById(id).innerHTML = '<div class="skel skel-val"></div>';
+  });
+}
+
+function showErrorBanner(msg) {
+  const banner = document.getElementById('error-banner');
+  document.getElementById('error-msg').textContent = msg;
+  banner.classList.add('visible');
+}
+function hideErrorBanner() {
+  document.getElementById('error-banner').classList.remove('visible');
+}
+</script>
+</body>
+</html>

@@ -218,6 +218,42 @@ function doPost(e) {
  */
 function doGet(e) {
   try {
+    // ── ADMIN ENDPOINT ───────────────────────────────────────────────────────
+    if (e.parameter.action === 'admin') {
+      if (e.parameter.pin !== '2026')
+        return jsonResponse({ status: 'error', message: 'Unauthorized' });
+
+      var adminSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+      if (!adminSheet)
+        return jsonResponse({ status: 'error', message: 'Sheet not found' });
+
+      var rows = adminSheet.getDataRange().getValues();
+      var guests = [];
+      for (var i = 1; i < rows.length; i++) {
+        if (!rows[i][0] && !rows[i][2]) continue; // skip empty rows
+        guests.push({
+          token:       rows[i][0],
+          formType:    rows[i][1],
+          name:        rows[i][2],
+          attendance:  rows[i][3],
+          guestCount:  rows[i][4],
+          meal:        rows[i][5],
+          drink:       rows[i][6],
+          djSong:      rows[i][7],
+          dance:       rows[i][8],
+          danceSong:   rows[i][9],
+          bangleSize:  rows[i][10],
+          favoriteGod: rows[i][11],
+          message:     rows[i][12],
+          timestamp:   rows[i][13] instanceof Date
+                         ? rows[i][13].toISOString()
+                         : String(rows[i][13])
+        });
+      }
+      return jsonResponse({ status: 'ok', count: guests.length, guests: guests });
+    }
+    // ─────────────────────────────────────────────────────────────────────────
+
     var token = e.parameter.token;
     if (!token)
       return jsonResponse({ status: 'error', message: 'No token provided' });
