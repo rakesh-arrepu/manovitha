@@ -1033,7 +1033,7 @@ function renderDanceSongs(guests) {
 /* ── RENDER: BANGLE SIZES ────────────────────────────────────────────────── */
 function renderBangleSizes(guests) {
   const container = document.getElementById('bangle-list');
-  const entries = guests.filter(g => g.bangleSize && g.bangleSize.trim());
+  const entries = guests.filter(g => g.bangleSize !== null && g.bangleSize !== undefined && String(g.bangleSize).trim() !== '');
   if (!entries.length) {
     container.innerHTML = '<p class="empty-note">No bangle sizes submitted yet.</p>';
     return;
@@ -1042,7 +1042,7 @@ function renderBangleSizes(guests) {
   // Frequency count for summary pills
   const freq = {};
   entries.forEach(g => {
-    const k = g.bangleSize.trim();
+    const k = String(g.bangleSize).trim();
     freq[k] = (freq[k] || 0) + 1;
   });
   const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
