@@ -6,7 +6,7 @@
 <title>Manohar &amp; Manvitha — Wedding May 3, 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Infant:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Infant:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <style>
 /* ── TOKENS ── */
 :root {
@@ -27,15 +27,15 @@
   --golddk:   #8b6914;
   --cream:    #fefcf9;
   --white:    #ffffff;
-  --body-clr: #3b1a6e;
-  --muted:    #7c3aed;
+  --body-clr: #2d1154;
+  --muted:    #4c1d95;
   --z-pre:    999;
   --z-nav:    100;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:80px}
-body{background:var(--cream);color:var(--body-clr);font-family:'Cormorant Infant',serif;overflow-x:hidden;line-height:1.65;
-  -webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+body{background:var(--cream);color:var(--body-clr);font-family:'Cormorant Infant',serif;overflow-x:hidden;line-height:1.65;font-weight:400;
+  -webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
 
 /* ── PRELOADER ── */
 #pl{position:fixed;inset:0;z-index:var(--z-pre);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;
@@ -51,14 +51,23 @@ body{background:var(--cream);color:var(--body-clr);font-family:'Cormorant Infant
 
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:var(--z-nav);padding:.9rem 3rem;display:flex;align-items:center;justify-content:space-between;
-  backdrop-filter:blur(24px) saturate(1.4);background:rgba(255,255,255,.75);
-  border-bottom:1px solid rgba(192,132,252,.18);transition:box-shadow .3s}
-nav.sd{box-shadow:0 4px 28px rgba(76,29,149,.14)}
-.nav-logo{font-family:'Great Vibes',cursive;font-size:1.7rem;color:var(--lav700);text-decoration:none}
+  backdrop-filter:blur(28px) saturate(1.8);
+  background:linear-gradient(135deg,rgba(250,246,255,.97) 0%,rgba(243,232,255,.96) 50%,rgba(250,246,255,.97) 100%);
+  border-bottom:1px solid rgba(192,132,252,.35);transition:box-shadow .3s}
+nav.sd{box-shadow:0 4px 32px rgba(76,29,149,.18),0 1px 0 rgba(201,162,39,.12)}
+/* logo: deep purple with warm gold glow — readable on light lavender bg */
+.nav-logo{font-family:'Great Vibes',cursive;font-size:1.9rem;letter-spacing:.02em;text-decoration:none;
+  color:var(--lav900);
+  text-shadow:0 0 18px rgba(201,162,39,.55),0 0 36px rgba(201,162,39,.25),0 2px 4px rgba(76,29,149,.2)}
 .nav-ul{display:flex;gap:2rem;list-style:none}
-.nav-ul a{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.2em;color:var(--body-clr);text-decoration:none;text-transform:uppercase;transition:color .2s}
-.nav-ul a:hover{color:var(--lav600)}
-.nav-ul a:focus-visible{outline:2px solid var(--lav600);outline-offset:3px;border-radius:2px}
+/* links: Playfair Display italic, lavender with glow */
+.nav-ul a{font-family:'Playfair Display',serif;font-size:.95rem;font-style:italic;font-weight:700;
+  letter-spacing:.03em;color:var(--lav700);text-decoration:none;
+  text-shadow:0 0 12px rgba(124,58,237,.25),0 1px 3px rgba(76,29,149,.12);
+  transition:color .25s ease,text-shadow .25s ease}
+.nav-ul a:hover{color:var(--golddk);
+  text-shadow:0 0 10px rgba(201,162,39,.7),0 0 22px rgba(201,162,39,.4),0 0 2px rgba(240,208,96,1)}
+.nav-ul a:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
 .hbg{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:5px}
 .hbg span{display:block;width:22px;height:2px;background:var(--lav700);border-radius:2px;
   transition:transform .3s ease,opacity .3s ease,background-color .2s ease}
@@ -94,14 +103,17 @@ nav.sd{box-shadow:0 4px 28px rgba(76,29,149,.14)}
 .hc{position:relative;z-index:2;text-align:center;padding:5.5rem 2rem 3rem;max-width:960px;width:100%;will-change:transform,opacity}
 
 /* ── DIVINE BANNER (Telugu wedding card style) ── */
-.divine-banner{display:flex;align-items:center;justify-content:center;gap:clamp(1rem,4vw,3rem);
-  margin-bottom:1rem;opacity:0;animation:up 1s ease .2s forwards}
-.divine-banner-item{display:flex;flex-direction:column;align-items:center;gap:.35rem;flex-shrink:0}
+.divine-banner{display:flex;align-items:center;justify-content:center;
+  margin:0 auto;width:100%;max-width:720px;
+  opacity:0;animation:up 1s ease .2s forwards}
+.divine-banner-item{display:flex;flex-direction:column;align-items:center;gap:.4rem;flex:1}
 .divine-banner-item img{height:clamp(55px,9vw,80px);width:auto;
   filter:drop-shadow(0 0 12px rgba(201,162,39,.2));pointer-events:none}
-.divine-center img{height:clamp(70px,12vw,110px)}
-.divine-banner-caption{font-family:'Cinzel',serif;font-size:clamp(.45rem,1vw,.58rem);
-  letter-spacing:.25em;color:rgba(240,208,96,.65);text-transform:uppercase;white-space:nowrap}
+.divine-center{flex:1;display:flex;flex-direction:column;align-items:center;padding-bottom:1.2rem}
+.h-monogram{height:clamp(70px,12vw,110px);width:auto;
+  filter:drop-shadow(0 0 16px rgba(201,162,39,.3));pointer-events:none}
+.divine-banner-caption{font-family:'Cinzel',serif;font-size:clamp(.55rem,1vw,.65rem);
+  letter-spacing:.2em;color:rgba(240,208,96,.88);font-weight:600;text-transform:uppercase;white-space:nowrap}
 
 .h-top{opacity:0;animation:up 1s ease .4s forwards}
 .h-eyebrow{font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.42em;color:rgba(240,208,96,.85);text-transform:uppercase;margin-bottom:.6rem;opacity:0;animation:up 1s ease .65s forwards}
@@ -117,15 +129,16 @@ nav.sd{box-shadow:0 4px 28px rgba(76,29,149,.14)}
 .h-profiles{display:flex;align-items:flex-start;justify-content:space-between;margin:0 auto;opacity:0;animation:up 1.2s ease .9s forwards;width:100%;max-width:960px;pointer-events:none}
 .h-profile{display:flex;flex-direction:column;align-items:center;gap:.6rem;flex-shrink:0;pointer-events:auto}
 /* circle frame */
-.h-profile-frame{position:relative;width:clamp(90px,14vw,130px);height:clamp(90px,14vw,130px)}
+.h-profile-frame{position:relative;width:clamp(130px,14vw,155px);height:clamp(130px,14vw,155px)}
 .h-profile-circle{width:100%;height:100%;border-radius:50%;overflow:hidden;
-  border:3px solid transparent;
+  border:4px solid transparent;
   background:linear-gradient(var(--deep),var(--deep)) padding-box,
              linear-gradient(135deg,var(--gold),var(--goldbr),var(--lav400),var(--gold)) border-box;
-  box-shadow:0 0 30px rgba(201,162,39,.2),0 0 60px rgba(124,58,237,.1);
+  box-shadow:0 0 50px rgba(201,162,39,.25),0 0 90px rgba(124,58,237,.12);
   display:flex;align-items:center;justify-content:center;
   animation:profileGlow 3s ease-in-out infinite alternate}
-.h-profile-circle img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.h-profile-circle img{width:100%;height:100%;object-fit:cover;object-position:center 40%;border-radius:50%;
+  transform:scale(1.5);transform-origin:center 40%}
 /* placeholder when no image */
 .h-profile-placeholder{font-family:'Great Vibes',cursive;font-size:clamp(2rem,5vw,3rem);
   color:rgba(240,208,96,.4);user-select:none}
@@ -133,24 +146,27 @@ nav.sd{box-shadow:0 4px 28px rgba(76,29,149,.14)}
   0%{box-shadow:0 0 25px rgba(201,162,39,.15),0 0 50px rgba(124,58,237,.08)}
   100%{box-shadow:0 0 35px rgba(201,162,39,.3),0 0 70px rgba(124,58,237,.15)}}
 /* crown / tiara icon */
-.h-profile-icon{position:absolute;top:-22px;left:50%;transform:translateX(-50%);
-  width:48px;height:48px;filter:drop-shadow(0 4px 12px rgba(201,162,39,.6)) drop-shadow(0 0 20px rgba(240,208,96,.3));z-index:3;
+.h-profile-icon{position:absolute;top:-26px;left:50%;transform:translateX(-50%);
+  width:52px;height:52px;filter:drop-shadow(0 4px 12px rgba(201,162,39,.6)) drop-shadow(0 0 20px rgba(240,208,96,.3));z-index:3;
   animation:crownFloat 3s ease-in-out infinite}
 @keyframes crownFloat{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-5px)}}
 /* sparkle ring around frame */
-.h-profile-frame::after{content:'';position:absolute;inset:-6px;border-radius:50%;
+.h-profile-frame::after{content:'';position:absolute;inset:-7px;border-radius:50%;
   border:1px solid transparent;
   background:linear-gradient(transparent,transparent) padding-box,
              conic-gradient(from 0deg,transparent 0%,rgba(201,162,39,.4) 25%,transparent 50%,rgba(192,132,252,.3) 75%,transparent 100%) border-box;
   animation:sparkleRing 6s linear infinite;pointer-events:none}
 @keyframes sparkleRing{to{transform:rotate(360deg)}}
 /* parent details text */
-.h-profile-detail{font-family:'Cormorant Infant',serif;font-size:clamp(.78rem,1.8vw,1rem);
-  color:rgba(255,255,255,.65);font-style:italic;text-align:center;line-height:1.5;max-width:180px}
-.h-profile-detail strong{color:rgba(240,208,96,.85);font-style:normal;font-weight:600}
+.h-profile-name{font-family:'Cinzel',serif;font-size:clamp(.82rem,1.7vw,.98rem);font-weight:700;
+  color:rgba(240,208,96,1);text-align:center;letter-spacing:.04em;line-height:1.3;max-width:185px;
+  text-shadow:0 0 14px rgba(201,162,39,.5),0 1px 3px rgba(0,0,0,.35);margin-bottom:.25rem}
+.h-profile-detail{font-family:'Cormorant Infant',serif;font-size:clamp(.78rem,1.6vw,.92rem);
+  color:rgba(255,255,255,.78);font-style:italic;font-weight:500;text-align:center;line-height:1.55;max-width:185px}
+.h-profile-detail strong{color:rgba(240,208,96,.92);font-style:normal;font-weight:700}
 /* profiles positioned as flanking overlay */
 .h-profiles-wrap{position:relative;width:100%}
-.h-profiles{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);padding:0 2rem;z-index:1}
+.h-profiles{position:absolute;top:50%;left:0;right:0;transform:translateY(-27%);padding:0 2rem;z-index:1}
 
 /* ornamental divider */
 .h-div{display:flex;align-items:center;justify-content:center;gap:.9rem;margin:1rem auto;opacity:0;animation:up 1s ease 1.1s forwards}
@@ -158,7 +174,7 @@ nav.sd{box-shadow:0 4px 28px rgba(76,29,149,.14)}
 .dl.r{background:linear-gradient(to left,transparent,rgba(240,208,96,.5))}
 .h-tagline{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,3vw,1.5rem);font-style:italic;color:rgba(240,208,96,.9);margin-bottom:.5rem;opacity:0;animation:up 1s ease 1.25s forwards;letter-spacing:.04em}
 .h-date{font-family:'Cinzel',serif;font-size:clamp(.8rem,2vw,1rem);letter-spacing:.3em;color:rgba(255,255,255,.75);margin-bottom:.35rem;opacity:0;animation:up 1s ease 1.45s forwards}
-.h-loc{font-family:'Cormorant Infant',serif;font-size:clamp(1rem,2.5vw,1.3rem);font-style:italic;color:rgba(255,255,255,.5);margin-bottom:1.5rem;opacity:0;animation:up 1s ease 1.6s forwards}
+.h-loc{font-family:'Cormorant Infant',serif;font-size:clamp(1rem,2.5vw,1.3rem);font-style:italic;font-weight:600;color:rgba(255,255,255,.82);margin-bottom:1.5rem;opacity:0;animation:up 1s ease 1.6s forwards}
 .h-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:up 1s ease 1.8s forwards}
 .btn-gold{padding:.9rem 2.5rem;background:linear-gradient(135deg,var(--gold),var(--golddk));color:var(--night);font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border-radius:50px;box-shadow:0 10px 40px rgba(201,162,39,.35);transition:transform .25s,box-shadow .25s;cursor:pointer;border:none}
 .btn-gold:hover{transform:translateY(-3px);box-shadow:0 16px 50px rgba(201,162,39,.5)}
@@ -190,9 +206,9 @@ nav.sd{box-shadow:0 4px 28px rgba(76,29,149,.14)}
 
 /* ── SECTION COMMON ── */
 section{padding:5rem 2rem}
-.ey{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.4em;color:var(--gold);text-align:center;text-transform:uppercase;margin-bottom:.6rem}
+.ey{font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.4em;color:var(--golddk);font-weight:700;text-align:center;text-transform:uppercase;margin-bottom:.6rem}
 .st{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,2.9rem);color:var(--night);text-align:center;margin-bottom:.8rem}
-.ss{font-family:'Cormorant Infant',serif;font-size:clamp(1rem,2.5vw,1.25rem);color:var(--muted);text-align:center;max-width:580px;margin:0 auto 3rem;font-style:italic;line-height:1.8}
+.ss{font-family:'Cormorant Infant',serif;font-size:clamp(1.05rem,2.5vw,1.3rem);color:var(--muted);font-weight:600;text-align:center;max-width:580px;margin:0 auto 3rem;font-style:italic;line-height:1.8}
 /* reveal */
 .rv{opacity:0;transform:translateY(38px);transition:opacity .75s ease,transform .75s ease}
 .rv.on{opacity:1;transform:translateY(0)}
@@ -210,7 +226,7 @@ section{padding:5rem 2rem}
 .cdc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--lav400),var(--gold),var(--lav400))}
 .cdn{font-family:'Cinzel',serif;font-size:clamp(2.6rem,6vw,3.8rem);font-weight:700;color:var(--lav800);line-height:1;margin-bottom:.45rem;transition:transform .15s ease}
 .cdn.flip{transform:scale(1.1)}
-.cdl{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+.cdl{font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.2em;color:var(--muted);font-weight:700;text-transform:uppercase}
 .cdsp{font-family:'Cinzel',serif;font-size:2.2rem;color:var(--gold);opacity:.6;align-self:center;padding-bottom:1.6rem;line-height:1}
 
 /* ── LOVE STORY TIMELINE ── */
@@ -236,7 +252,7 @@ section{padding:5rem 2rem}
   background:linear-gradient(to right,var(--lav400),var(--gold))}
 .tl-year{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-bottom:.4rem}
 .tl-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--night);margin-bottom:.4rem}
-.tl-desc{font-size:1rem;color:var(--muted);font-style:italic;line-height:1.7}
+.tl-desc{font-size:1rem;color:var(--muted);font-style:italic;font-weight:600;line-height:1.7}
 .tl-dot{grid-column:2;justify-self:center;width:14px;height:14px;border-radius:50%;
   background:rgba(192,132,252,.3);border:2px solid rgba(201,162,39,.25);
   box-shadow:0 0 0 4px rgba(201,162,39,.08);
@@ -271,11 +287,12 @@ section{padding:5rem 2rem}
 .celeb-line svg{width:18px;height:18px;fill:var(--gold);opacity:.55;flex-shrink:0}
 .celeb-detail{margin-bottom:1.2rem;text-align:center}
 .celeb-detail:last-of-type{margin-bottom:0}
-.celeb-label{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:.3rem;font-weight:600;
+.celeb-label{font-family:'Cinzel',serif;font-size:.74rem;letter-spacing:.22em;color:var(--golddk);text-transform:uppercase;margin-bottom:.3rem;font-weight:700;
   display:flex;align-items:center;justify-content:center;gap:.45rem}
 .celeb-label-icon{width:16px;height:16px;flex-shrink:0;opacity:.85}
-.celeb-value{font-family:'Cormorant Infant',serif;font-size:1.1rem;color:var(--body-clr);line-height:1.6}
+.celeb-value{font-family:'Cormorant Infant',serif;font-size:1.15rem;font-weight:600;color:var(--body-clr);line-height:1.6}
 .celeb-venue-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--night)}
+.celeb-venue-note{display:block;font-family:'Cormorant Infant',serif;font-size:.82rem;font-style:italic;font-weight:500;color:#7c5ab8;margin-top:.3rem;line-height:1.45}
 .celeb-link{color:var(--lav600);text-decoration:none;border-bottom:1px dashed rgba(147,51,234,.3);
   transition:color .2s,border-color .2s;display:inline}
 .celeb-link:hover{color:var(--lav700);border-bottom-color:var(--lav700)}
@@ -299,7 +316,7 @@ section{padding:5rem 2rem}
 .gallery-coming-soon{text-align:center;max-width:600px;margin:0 auto;padding:3rem 2rem}
 .coming-soon-script{font-family:'Great Vibes',cursive;font-size:clamp(2rem,5vw,3rem);
   color:var(--lav500);margin-bottom:.8rem;line-height:1.3}
-.coming-soon-text{font-family:'Cormorant Infant',serif;font-size:1.2rem;font-style:italic;
+.coming-soon-text{font-family:'Cormorant Infant',serif;font-size:1.2rem;font-style:italic;font-weight:600;
   color:var(--muted);line-height:1.7}
 .coming-soon-icon{width:80px;height:80px;margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center;
   background:rgba(168,85,247,.06);border:1.5px solid rgba(168,85,247,.15);border-radius:50%}
@@ -317,9 +334,9 @@ section{padding:5rem 2rem}
 #rsvp::after{content:'';position:absolute;inset:0;
   background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
   opacity:.5;pointer-events:none}
-#rsvp .ey{color:rgba(240,208,96,.85);font-size:.8rem;letter-spacing:.5em;font-weight:600}
+#rsvp .ey{color:rgba(240,208,96,.95);font-size:.84rem;letter-spacing:.5em;font-weight:700}
 #rsvp .st{color:var(--white);font-size:clamp(2rem,5.5vw,3.2rem);margin-bottom:.4rem}
-#rsvp .ss{color:rgba(255,255,255,.6);font-size:clamp(1.05rem,2.5vw,1.3rem);margin-bottom:1rem}
+#rsvp .ss{color:rgba(255,255,255,.82);font-size:clamp(1.05rem,2.5vw,1.3rem);margin-bottom:1rem}
 
 /* RSVP ornamental flourish */
 .rsvp-flourish{display:flex;align-items:center;justify-content:center;gap:1rem;margin:0 auto 2.5rem;max-width:320px}
@@ -467,8 +484,8 @@ textarea.fi{resize:vertical;min-height:80px}
 .rsvp-success{text-align:center;padding:2.5rem 1.5rem}
 .rsvp-success-icon{margin-bottom:1.2rem}
 .rsvp-success h3{font-family:'Great Vibes',cursive;font-size:clamp(1.8rem,4vw,2.4rem);color:var(--goldbr);margin-bottom:.6rem;font-weight:400}
-.rsvp-success p{font-family:'Cormorant Infant',serif;font-size:1.15rem;color:rgba(255,255,255,.6);
-  font-style:italic;margin-bottom:1rem;line-height:1.7}
+.rsvp-success p{font-family:'Cormorant Infant',serif;font-size:1.15rem;color:rgba(255,255,255,.82);
+  font-style:italic;font-weight:500;margin-bottom:1rem;line-height:1.7}
 
 /* ── RSVP FORM SECTION LABEL ── */
 .rsvp-section-label{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.18em;
@@ -479,8 +496,8 @@ textarea.fi{resize:vertical;min-height:80px}
   border-bottom:1px solid rgba(201,162,39,.15)}
 .rsvp-panel-title{font-family:'Great Vibes',cursive;font-size:clamp(1.5rem,3.5vw,2rem);
   color:var(--goldbr);margin-bottom:.4rem;font-weight:400}
-.rsvp-panel-desc{font-family:'Cormorant Infant',serif;font-size:1.05rem;
-  color:rgba(255,255,255,.55);font-style:italic;line-height:1.5;margin:0}
+.rsvp-panel-desc{font-family:'Cormorant Infant',serif;font-size:1.1rem;
+  color:rgba(255,255,255,.78);font-style:italic;font-weight:500;line-height:1.5;margin:0}
 
 /* ── STATIC LABELS (non-floating) ── */
 .fg .fl-static{display:block;margin-bottom:.55rem;font-family:'Cinzel',serif;
@@ -609,10 +626,100 @@ textarea.fi{resize:vertical;min-height:80px}
   box-shadow:0 8px 30px rgba(201,162,39,.35),0 0 0 1px rgba(255,255,255,.2) inset}
 .live-btn.cam-btn:hover::before{opacity:1}
 
+/* Upload steps guide */
+.upload-steps{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.6rem;text-align:left;width:100%}
+.upload-step{display:flex;align-items:center;gap:.7rem;
+  background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;padding:.55rem .9rem;
+  transition:background .2s ease,border-color .2s ease}
+.live-card:hover .upload-step{background:rgba(255,255,255,.06);border-color:rgba(240,208,96,.14)}
+.upload-step-num{width:22px;height:22px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--gold),var(--golddk));
+  color:var(--deep);font-family:'Cinzel',serif;font-size:.6rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(201,162,39,.35)}
+.upload-step-txt{font-family:'Cormorant Infant',serif;font-size:.9rem;
+  color:rgba(255,255,255,.72);font-style:italic;line-height:1.3}
+.upload-note{font-family:'Cormorant Infant',serif;font-size:.78rem;
+  color:rgba(255,255,255,.38);font-style:italic;margin-bottom:1.2rem;line-height:1.4}
+
+/* ── DROP ZONE ── */
+.upload-dropzone{position:relative;border:2px dashed rgba(168,85,247,.35);border-radius:16px;
+  padding:1.8rem 1.4rem;margin-bottom:1.1rem;cursor:pointer;
+  background:rgba(168,85,247,.04);
+  transition:border-color .2s ease,background .2s ease;
+  text-align:center;min-height:110px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55rem}
+.upload-dropzone:hover,.upload-dropzone.drag-over{
+  border-color:rgba(240,208,96,.55);background:rgba(201,162,39,.06)}
+.upload-dropzone:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.upload-dropzone>svg{width:32px;height:32px;stroke:rgba(168,85,247,.7);
+  transition:stroke .2s ease;flex-shrink:0}
+.upload-dropzone:hover>svg,.upload-dropzone.drag-over>svg{stroke:var(--goldbr)}
+.upload-dz-title{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;
+  text-transform:uppercase;color:rgba(255,255,255,.82)}
+.upload-dz-sub{font-family:'Cormorant Infant',serif;font-size:.82rem;font-style:italic;
+  color:rgba(255,255,255,.42);line-height:1.4}
+.upload-file-input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+/* ── THUMBNAIL PREVIEW ── */
+.upload-preview{display:none;flex-wrap:wrap;gap:.55rem;margin-bottom:.9rem;justify-content:flex-start}
+.upload-preview.has-files{display:flex}
+.upload-thumb{position:relative;width:68px;height:68px;border-radius:10px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);flex-shrink:0}
+.upload-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.upload-thumb-vid{width:100%;height:100%;background:rgba(168,85,247,.18);
+  display:flex;align-items:center;justify-content:center}
+.upload-thumb-vid svg{width:22px;height:22px;fill:#fff}
+.upload-thumb-status{position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center;border-radius:10px;transition:background .2s ease}
+.upload-thumb-status.uploading{background:rgba(0,0,0,.55)}
+.upload-thumb-status.done{background:rgba(0,80,40,.55)}
+.upload-thumb-status.err{background:rgba(100,0,0,.55)}
+.upload-thumb-remove{position:absolute;top:3px;right:3px;width:20px;height:20px;
+  border-radius:50%;background:rgba(0,0,0,.65);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  color:#fff;font-size:.75rem;line-height:1;z-index:2;transition:background .15s ease}
+.upload-thumb-remove:hover{background:rgba(180,0,0,.85)}
+.upload-thumb-remove:focus-visible{outline:2px solid var(--goldbr);outline-offset:2px}
+/* ── SPINNER ── */
+.upload-spinner{width:22px;height:22px;border:2.5px solid rgba(255,255,255,.15);
+  border-top-color:var(--goldbr);border-radius:50%;animation:rsvp-spin .9s linear infinite}
+/* ── STATUS LIST ── */
+.upload-status-list{display:none;flex-direction:column;gap:.38rem;
+  margin-bottom:.9rem;width:100%;text-align:left}
+.upload-status-list.visible{display:flex}
+.upload-status-row{display:flex;align-items:center;gap:.55rem;padding:.42rem .75rem;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  border-radius:10px;font-family:'Cormorant Infant',serif;font-size:.88rem;
+  font-style:italic;color:rgba(255,255,255,.72);
+  transition:border-color .2s ease,background .2s ease}
+.upload-status-row.done{border-color:rgba(0,200,100,.22);background:rgba(0,100,50,.08)}
+.upload-status-row.err{border-color:rgba(255,80,80,.22);background:rgba(100,0,0,.09)}
+.upload-status-icon{flex-shrink:0;width:16px;height:16px;display:flex;align-items:center;justify-content:center}
+.upload-status-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.upload-status-msg{font-size:.78rem;color:rgba(255,255,255,.42);flex-shrink:0}
+.upload-status-row.err .upload-status-msg{color:rgba(255,120,120,.9)}
+.upload-status-row.done .upload-status-msg{color:rgba(100,220,150,.9)}
+/* ── UPLOAD BUTTON STATE ── */
+.upload-action-btn{display:none;width:100%;justify-content:center;margin-bottom:.65rem}
+.upload-action-btn.visible{display:inline-flex}
+.live-btn.cam-btn:disabled{opacity:.55;cursor:not-allowed;
+  transform:none!important;box-shadow:0 4px 15px rgba(201,162,39,.15)!important}
+/* ── ALL-DONE BANNER ── */
+.upload-all-done{display:none;text-align:center;padding:1rem .9rem;border-radius:14px;
+  background:rgba(0,80,40,.14);border:1px solid rgba(0,200,100,.18);margin-bottom:.7rem}
+.upload-all-done.visible{display:block}
+.upload-all-done p{font-family:'Great Vibes',cursive;font-size:1.55rem;
+  color:var(--goldbr);margin:0 0 .15rem}
+.upload-all-done small{font-family:'Cormorant Infant',serif;font-size:.88rem;
+  font-style:italic;color:rgba(255,255,255,.52)}
+
 /* Reduced motion */
 @media(prefers-reduced-motion:reduce){
   .live-card::after,.live-card .accent-dot{animation:none!important}
   .live-card,.live-icon-wrap,.live-icon-ring,.live-btn,.live-tz{transition:none!important}
+  .upload-spinner{animation:none!important}
+  .upload-dropzone,.upload-thumb-status,.upload-status-row{transition:none!important}
 }
 @media(max-width:700px){
   .live-grid{grid-template-columns:1fr;max-width:420px}
@@ -620,54 +727,10 @@ textarea.fi{resize:vertical;min-height:80px}
   .live-icon-wrap{width:76px;height:76px}
   .live-icon{width:76px;height:76px}
   .live-icon svg{width:30px;height:30px}
+  .upload-dropzone{padding:1.5rem 1rem;min-height:96px}
+  .upload-thumb{width:58px;height:58px}
 }
 
-/* ── PHOTO UPLOAD MODAL ── */
-.photo-modal-overlay{position:fixed;inset:0;z-index:9999;
-  background:rgba(13,0,26,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  display:none;align-items:center;justify-content:center;padding:1.2rem;
-  opacity:0;transition:opacity .3s ease-out}
-.photo-modal-overlay.active{display:flex}
-.photo-modal-overlay.visible{opacity:1}
-.photo-modal{position:relative;width:100%;max-width:620px;max-height:90vh;max-height:90dvh;
-  background:linear-gradient(155deg,rgba(44,17,84,.96),rgba(26,9,51,.98));
-  border-radius:22px;border:1px solid rgba(240,208,96,.15);
-  box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 80px rgba(168,85,247,.08),
-    0 1px 0 rgba(240,208,96,.25) inset;
-  display:flex;flex-direction:column;overflow:hidden;
-  transform:translateY(12px) scale(.98);transition:transform .3s ease-out}
-.photo-modal-overlay.visible .photo-modal{transform:translateY(0) scale(1)}
-.photo-modal-close{position:absolute;top:14px;right:14px;z-index:2;
-  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:#fff;
-  font-size:1.5rem;width:42px;height:42px;min-width:42px;min-height:42px;border-radius:50%;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:background .2s ease,border-color .2s ease;line-height:1}
-.photo-modal-close:hover{background:rgba(255,255,255,.15);border-color:rgba(240,208,96,.3)}
-.photo-modal-close:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-.photo-modal-header{text-align:center;padding:1.8rem 3rem .6rem}
-.photo-modal-title{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--white);
-  margin:0 0 .3rem;letter-spacing:.02em}
-.photo-modal-sub{font-family:'Cormorant Infant',serif;font-size:1rem;
-  color:rgba(255,255,255,.5);font-style:italic;margin:0}
-.photo-modal-body{flex:1;min-height:0;padding:0 1.2rem 1.2rem}
-.photo-modal-body iframe{width:100%;height:100%;min-height:460px;
-  border:none;border-radius:14px;background:#fff}
-.photo-modal-fallback{text-align:center;font-family:'Cormorant Infant',serif;
-  font-size:.85rem;color:rgba(255,255,255,.35);margin-top:.6rem;font-style:italic}
-.photo-modal-fallback a{color:rgba(240,208,96,.6);text-decoration:underline;
-  text-underline-offset:2px;transition:color .2s}
-.photo-modal-fallback a:hover{color:rgba(240,208,96,.9)}
-@media(max-width:768px){
-  .photo-modal-overlay{padding:0}
-  .photo-modal{max-width:100%;max-height:100vh;max-height:100dvh;
-    border-radius:0;height:100%;border:none}
-  .photo-modal-close{top:10px;right:10px}
-  .photo-modal-header{padding:1.4rem 3.5rem .5rem}
-  .photo-modal-body iframe{min-height:70vh;min-height:70dvh;border-radius:10px}
-}
-@media(prefers-reduced-motion:reduce){
-  .photo-modal-overlay,.photo-modal{transition:none!important}
-}
 
 /* ── FOOTER ── */
 footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 2rem 2.5rem}
@@ -735,19 +798,22 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
   .nav-ul.open li:nth-child(6){transition-delay:.26s}
   .nav-ul.open li:nth-child(7){transition-delay:.3s}
   .nav-ul li:last-child{border-bottom:none}
-  .nav-ul a{font-size:1.15rem;letter-spacing:.22em;min-height:56px;display:flex;
-    align-items:center;justify-content:center;width:100%;color:var(--night);
-    transition:color .2s,background .2s;border-radius:8px}
-  .nav-ul a:hover,.nav-ul a:active{color:var(--lav600);background:rgba(168,85,247,.06)}
+  .nav-ul a{font-size:1.25rem;letter-spacing:.04em;min-height:56px;display:flex;
+    align-items:center;justify-content:center;width:100%;color:var(--lav700);
+    text-shadow:0 0 14px rgba(124,58,237,.2);
+    transition:color .25s,text-shadow .25s,background .2s;border-radius:8px}
+  .nav-ul a:hover,.nav-ul a:active{color:var(--golddk);background:rgba(201,162,39,.06);
+    text-shadow:0 0 12px rgba(201,162,39,.65),0 0 24px rgba(201,162,39,.3)}
   /* hero */
   .hc{padding:6rem 1.5rem 3.5rem}
   .h-top svg{max-width:180px;height:auto}
   .h-profiles-wrap{display:flex;flex-direction:column;align-items:center}
   .h-profiles{position:static;transform:none;flex-direction:row;justify-content:center;gap:1.5rem;padding:0;order:2;margin-top:1rem}
   .h-profile{flex-direction:column;gap:.5rem}
-  .h-profile-frame{width:90px;height:90px}
-  .h-profile-icon{width:44px;height:44px;top:-20px}
-  .h-profile-detail{text-align:center;font-size:.85rem}
+  .h-profile-frame{width:130px;height:130px}
+  .h-profile-icon{width:52px;height:52px;top:-24px}
+  .h-profile-name{font-size:.82rem}
+  .h-profile-detail{text-align:center;font-size:.78rem}
   .h-names{order:1}
   .h-btns{flex-direction:column;align-items:center}
   .btn-gold,.btn-ghost{width:100%;max-width:280px;text-align:center;
@@ -755,15 +821,15 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
   #hero > svg[style*="position:absolute"]{opacity:.06 !important}
   .orb1{width:380px;height:380px;top:-100px;right:-100px}
   .orb2{width:280px;height:280px;bottom:-80px;left:-70px}
-  .divine-banner{gap:clamp(.8rem,3vw,1.8rem);margin-bottom:.8rem}
+  .divine-banner{max-width:100%}
   .divine-banner-item img{height:clamp(45px,9vw,65px)}
-  .divine-center img{height:clamp(58px,12vw,85px)}
+  .h-monogram{height:clamp(58px,12vw,85px)}
   /* countdown */
   .cdsp{display:none}
   .cd-wrap{gap:.6rem}
   .cdc{min-width:100px;padding:1.3rem 1rem}
   .cdn{font-size:clamp(2rem,9vw,3rem)}
-  .cdl{font-size:.68rem;letter-spacing:.15em}
+  .cdl{font-size:.72rem;letter-spacing:.13em}
   /* celebrations — stack cards */
   .celeb-grid{grid-template-columns:1fr}
   .celeb-body{padding:2rem 1.5rem 1.5rem}
@@ -794,7 +860,7 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
   .cdsp{display:none}
   .cdc{min-width:0;padding:1.2rem .8rem;border-radius:14px}
   .cdn{font-size:clamp(1.7rem,10vw,2.4rem)}
-  .cdl{font-size:.65rem;letter-spacing:.12em}
+  .cdl{font-size:.7rem;letter-spacing:.1em}
   /* footer */
   .ft-families{flex-direction:column;gap:.8rem;align-items:center}
   .ft-fam-name{font-size:1rem}
@@ -803,13 +869,14 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
   /* hero */
   .h-top svg{max-width:150px}
   .h-eyebrow{font-size:.75rem;letter-spacing:.25em}
-  .h-profile-frame{width:80px;height:80px}
-  .h-profile-icon{width:40px;height:40px;top:-18px}
-  .h-profile-detail{font-size:.8rem}
-  .divine-banner{gap:.6rem;margin-bottom:.5rem}
+  .h-profile-frame{width:110px;height:110px}
+  .h-profile-icon{width:46px;height:46px;top:-22px}
+  .h-profile-name{font-size:.74rem}
+  .h-profile-detail{font-size:.72rem}
+  .divine-banner{max-width:100%}
   .divine-banner-item img{height:clamp(38px,10vw,50px)}
-  .divine-center img{height:clamp(48px,13vw,65px)}
-  .divine-banner-caption{font-size:.4rem;letter-spacing:.12em}
+  .h-monogram{height:clamp(48px,13vw,65px)}
+  .divine-banner-caption{font-size:.52rem;letter-spacing:.1em}
   /* rsvp */
   #rsvp{padding:4rem 1.2rem}
   .rsvp-card{padding:1.8rem 1.2rem;border-radius:20px}
@@ -828,15 +895,16 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
   .h-top svg{max-width:130px}
   .h-tagline{font-size:clamp(.95rem,3vw,1.2rem)}
   .h-profiles{gap:1rem}
-  .h-profile-frame{width:65px;height:65px}
-  .h-profile-icon{width:34px;height:34px;top:-14px}
-  .h-profile-detail{font-size:.72rem;max-width:130px}
+  .h-profile-frame{width:85px;height:85px}
+  .h-profile-icon{width:36px;height:36px;top:-16px}
+  .h-profile-name{font-size:.68rem;max-width:120px}
+  .h-profile-detail{font-size:.66rem;max-width:130px}
   #hero > svg[style*="position:absolute"]{display:none}
   .orb1,.orb2{display:none}
   .cd-wrap{max-width:240px;gap:.5rem}
   .cdc{padding:.9rem .5rem;border-radius:12px}
   .cdn{font-size:clamp(1.5rem,12vw,2rem)}
-  .cdl{font-size:.65rem;letter-spacing:.08em}
+  .cdl{font-size:.68rem;letter-spacing:.06em}
   /* timeline */
   .tl-card{padding:1rem 1.1rem}
   /* RSVP */
@@ -847,7 +915,7 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
   .rsvp-script{font-size:1.2rem;margin-bottom:1.5rem}
   .fl{font-size:.72rem;letter-spacing:.12em}
   .btn-rsvp{font-size:.72rem;padding:1rem 1.2rem}
-  .nav-logo{font-size:1.4rem}
+  .nav-logo{font-size:1.6rem}
   /* celebrations */
   .celeb-body{padding:1.5rem 1.2rem 1.2rem}
   .celeb-title{font-size:1.6rem}
@@ -963,14 +1031,14 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
   </svg>
 
   <div class="hc">
-    <!-- Divine banner: Ganesha | M&M Monogram | Sai Baba -->
+    <!-- Divine banner: Ganesha | MnM Monogram (center) | Sai Baba — equal thirds -->
     <div class="divine-banner">
       <div class="divine-banner-item">
         <img src="god-images/ganesha.png" alt="Lord Ganesha" loading="eager">
         <span class="divine-banner-caption">Shri Ganeshaya Namaha</span>
       </div>
-      <div class="divine-banner-item divine-center">
-        <img src="god-images/mm-monogram.png" alt="Manohar and Manvitha" loading="eager">
+      <div class="divine-center">
+        <img class="h-monogram" src="god-images/mm-monogram.png" alt="Manohar and Manvitha" loading="eager">
       </div>
       <div class="divine-banner-item">
         <img src="god-images/sai-baba.png" alt="Shri Sai Baba" loading="eager">
@@ -978,7 +1046,7 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
       </div>
     </div>
 
-    <!-- Top ornament -->
+    <!-- Top ornament — diamond centered below MnM monogram -->
     <div class="h-top" aria-hidden="true">
       <svg width="240" height="36" viewBox="0 0 240 36">
         <line x1="0" y1="18" x2="90" y2="18" stroke="rgba(201,162,39,.5)" stroke-width="1"/>
@@ -1026,10 +1094,11 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
               </defs>
             </svg>
             <div class="h-profile-circle">
-              <img src="pictures/Bride.jpeg" alt="Manohar" loading="eager">
+              <img src="pictures/Groom_New.jpeg" alt="Manohar" loading="eager" style="transform-origin:center 55%">
             </div>
           </div>
-          <p class="h-profile-detail">Elder Son of<br><strong>Krishna &amp; Rukmini</strong></p>
+          <p class="h-profile-name">Manohar Sai Yadav<br>Chandaka</p>
+          <p class="h-profile-detail">Son of<br><strong>Krishna Chandaka</strong><br>&amp; <strong>Rukmini Chandaka</strong></p>
         </div>
 
         <!-- Bride -->
@@ -1089,10 +1158,11 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
               </defs>
             </svg>
             <div class="h-profile-circle">
-              <img src="pictures/Groom.jpeg" alt="Manvitha" loading="eager">
+              <img src="pictures/Bride_New.jpeg" alt="Manvitha" loading="eager" style="transform-origin:center 30%">
             </div>
           </div>
-          <p class="h-profile-detail">Elder Daughter of<br><strong>Kanakesh &amp; Kanchana</strong></p>
+          <p class="h-profile-name">Manvitha Reddy<br>Pandiri</p>
+          <p class="h-profile-detail">Daughter of<br><strong>Kanakeswara Rao Pandiri</strong><br>&amp; <strong>Kanchana Dumpa</strong></p>
         </div>
       </div>
 
@@ -1115,13 +1185,13 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
       <div class="dl r"></div>
     </div>
 
-    <p class="h-tagline">"From Sand to Snow I, forever we GO"</p>
+    <p class="h-tagline">"From Sand to Snow, forever we GO"</p>
     <p class="h-date">SUNDAY · THE 3RD OF MAY · 2026</p>
     <p class="h-loc">Mangalya Muhurtham 10:39 AM</p>
 
     <div class="h-btns">
       <a href="#rsvp" class="btn-gold">Celebrate With Us</a>
-      <a href="#story" class="btn-ghost">Our Love Story</a>
+      <a href="#story" class="btn-ghost">Our Story</a>
     </div>
   </div>
 </section>
@@ -1160,7 +1230,7 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
 <!-- LOVE STORY TIMELINE -->
 <section id="story" aria-labelledby="story-h">
   <p class="ey rv">From Friends to Happiest Couple</p>
-  <h2 class="st rv" id="story-h">Our Love Story</h2>
+  <h2 class="st rv" id="story-h">Our Story</h2>
   <p class="ss rv">Life was quietly writing our story — we just had to live it</p>
 
   <div class="tl" role="list">
@@ -1168,7 +1238,7 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
       <div class="tl-card" tabindex="0">
         <p class="tl-year">Chapter One · The Beginning</p>
         <h3 class="tl-title">Two Strangers, One Moment</h3>
-        <p class="tl-desc">We met without knowing that life was quietly writing our love story. No grand entrance, no dramatic first glance — just two people crossing paths at the right time.</p>
+        <p class="tl-desc">We met without knowing that life was quietly writing our story. No grand entrance, no dramatic first glance — just two people crossing paths at the right time.</p>
       </div>
       <div class="tl-dot" aria-hidden="true"></div>
       <div class="tl-empty"></div>
@@ -1237,7 +1307,19 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
       <div class="celeb-accent celeb-accent-cocktail"></div>
       <div class="celeb-body">
         <div class="celeb-icon">
-          <svg viewBox="0 0 24 24"><path d="M8 2l1.5 7H5l6.5 8L10 12h5L8 2z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 22h14M12 17v5" stroke="currentColor" stroke-width="1.5"/><path d="M3 2l3.5 8h11L21 2" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="10" x2="12" y2="17" stroke="currentColor" stroke-width="1.5"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Martini glass bowl -->
+            <path d="M3 4h18L12 15z"/>
+            <!-- Liquid fill line -->
+            <line x1="6" y1="9" x2="18" y2="9" stroke-width="1" opacity=".45"/>
+            <!-- Stem -->
+            <line x1="12" y1="15" x2="12" y2="20"/>
+            <!-- Base -->
+            <line x1="7.5" y1="20" x2="16.5" y2="20"/>
+            <!-- Olive on toothpick garnish -->
+            <line x1="8" y1="6.5" x2="14.5" y2="8.5" stroke-width="1"/>
+            <circle cx="8" cy="6.5" r="1.4" fill="currentColor" opacity=".5" stroke="none"/>
+          </svg>
         </div>
         <h3 class="celeb-title">Cheers Before the Vows</h3>
         <div class="celeb-line" aria-hidden="true">
@@ -1248,7 +1330,7 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
 
         <div class="celeb-detail">
           <div class="celeb-label"><svg class="celeb-label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-4h6v4"/><path d="M10 10h1"/><path d="M14 10h1"/></svg>Venue</div>
-          <div class="celeb-value celeb-venue-name">Shergill Legacy Hall</div>
+          <div class="celeb-value celeb-venue-name">Shergill Legacy Hall<span class="celeb-venue-note">(The entrance to the hall is towards Marriott &mdash; North facing entrance)</span></div>
         </div>
         <div class="celeb-detail">
           <div class="celeb-label"><svg class="celeb-label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Location</div>
@@ -1272,7 +1354,16 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
       <div class="celeb-accent celeb-accent-wedding"></div>
       <div class="celeb-body">
         <div class="celeb-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="4" r="2"/><path d="M12 6v4M8 22h8M12 10c-4 0-6 3-6 6v2h12v-2c0-3-2-6-6-6z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 14c0 0 1.5 2 3 2s3-2 3-2" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+          <svg viewBox="0 0 32 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Left ring -->
+            <circle cx="11" cy="12" r="7.5"/>
+            <!-- Right ring -->
+            <circle cx="21" cy="12" r="7.5"/>
+            <!-- Shine on left ring -->
+            <path d="M7 7.5 Q8.5 6 10.5 6" stroke-width="1" opacity=".5"/>
+            <!-- Shine on right ring -->
+            <path d="M17 7.5 Q18.5 6 20.5 6" stroke-width="1" opacity=".5"/>
+          </svg>
         </div>
         <h3 class="celeb-title">Wedding Day</h3>
         <div class="celeb-line" aria-hidden="true">
@@ -1295,11 +1386,11 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
         </div>
         <div class="celeb-detail celeb-muhurtham">
           <div class="celeb-label"><svg class="celeb-label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Mangalya Muhurtham</div>
-          <div class="celeb-value">Sunday, May 3rd 2026, 10:39 AM MST<br>Sunday, May 3rd 2026, 10:09 PM IST</div>
+          <div class="celeb-value">Sunday, May 3rd 2026, 10:39 AM MDT<br>Sunday, May 3rd 2026, 10:09 PM IST</div>
         </div>
         <div class="celeb-detail">
           <div class="celeb-label"><svg class="celeb-label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a1 1 0 0 0-1 1v1H9a1 1 0 0 0-1 1v1H4v16h16V6h-4V5a1 1 0 0 0-1-1h-2V3a1 1 0 0 0-1-1z" stroke="none" fill="none"/><path d="M6 3h12l-1 3H7L6 3z"/><path d="M7 6v1c0 3 2.5 5 5 5s5-2 5-5V6"/><path d="M12 17v4M8 21h8"/><circle cx="12" cy="15" r="2"/></svg>Dress Code</div>
-          <div class="celeb-value">Traditional</div>
+          <div class="celeb-value">Ethnic Wear</div>
         </div>
 
         <button type="button" class="celeb-rsvp-btn" data-rsvp="wedding" aria-label="RSVP for Wedding Day">RSVP</button>
@@ -1332,7 +1423,7 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
 <section id="rsvp" aria-labelledby="rsvp-h">
   <p class="ey rv">You Are Warmly Invited</p>
   <h2 class="st rv" id="rsvp-h">Kindly RSVP</h2>
-  <p class="ss rv">Please respond with love by April 10, 2026</p>
+  <p class="ss rv">We can&rsquo;t wait to celebrate our big day with you!<br>To help us finalize our arrangements with the venue, we kindly request the favor of your reply as soon as possible, but no later than <strong>March 20th, 2026</strong>.</p>
 
   <!-- Ornamental flourish -->
   <div class="rsvp-flourish rv" aria-hidden="true">
@@ -1592,11 +1683,11 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
       <div class="live-time">
         <span class="live-tz">
           <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/></svg>
-          <span class="tz-flag" aria-hidden="true">&#127482;&#127480;</span> May 3, 2026 &middot; 10:00 AM MDT
+          <span class="tz-flag" aria-hidden="true">&#127482;&#127480;</span> May 3, 2026 &middot; 9:00 AM MDT
         </span>
         <span class="live-tz">
           <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/></svg>
-          <span class="tz-flag" aria-hidden="true">&#127470;&#127475;</span> May 3, 2026 &middot; 9:30 PM IST
+          <span class="tz-flag" aria-hidden="true">&#127470;&#127475;</span> May 3, 2026 &middot; 8:30 PM IST
         </span>
       </div>
       <a href="#" class="live-btn yt-btn" id="live-yt-link" target="_blank" rel="noopener noreferrer" aria-label="Watch live on YouTube">
@@ -1614,25 +1705,65 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
         <div class="live-icon-ring ring-outer" aria-hidden="true"></div>
         <div class="live-icon-ring" aria-hidden="true"></div>
         <div class="live-icon cam">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 16l4.586-4.586a2 2 0 0 1 2.828 0L16 16"/>
-            <path d="M14.5 13.5l1.086-1.086a2 2 0 0 1 2.828 0L20 14"/>
-            <rect x="3" y="3" width="18" height="18" rx="3"/>
-            <circle cx="8.5" cy="8.5" r="1.5" fill="#fff" stroke="none"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
           </svg>
         </div>
       </div>
       <h3>Share Your Moments</h3>
-      <p class="live-sub">Captured something beautiful? Upload your photos &amp; videos to our shared album</p>
-      <div class="live-time">
-        <span class="live-tz">
-          <svg viewBox="0 0 24 24"><path d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
-          Upload directly to our cloud album
-        </span>
+      <p class="live-sub">Captured something beautiful? Add your photos &amp; videos to our shared wedding album</p>
+
+      <!-- Drop zone — entire area is tappable (file input covers it) -->
+      <div class="upload-dropzone" id="upload-dz" role="button" tabindex="0"
+           aria-label="Choose photos or videos to upload"
+           aria-describedby="upload-dz-desc">
+        <input type="file" id="upload-input" class="upload-file-input"
+               accept="image/jpeg,image/png,image/webp,image/heic,video/mp4,video/quicktime"
+               multiple aria-hidden="true" tabindex="-1">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        <span class="upload-dz-title">Drop photos &amp; videos here</span>
+        <span class="upload-dz-sub" id="upload-dz-desc">or tap to choose &middot; JPG PNG HEIC WebP MP4 MOV &middot; 10 MB max each</span>
       </div>
-      <button type="button" class="live-btn cam-btn" id="photo-upload-link" aria-label="Upload photos" aria-haspopup="dialog">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 14.414V4h2v10.414l3.707-3.707 1.414 1.414L12 18.242l-6.121-6.121 1.414-1.414L11 14.414z"/><path d="M5 20h14v2H5v-2z"/></svg>
-        <span>Upload Photos</span>
+
+      <!-- Thumbnail strip -->
+      <div class="upload-preview" id="upload-preview" aria-label="Selected files preview"></div>
+
+      <!-- Per-file status rows -->
+      <div class="upload-status-list" id="upload-status-list"
+           role="status" aria-live="polite" aria-label="Upload progress"></div>
+
+      <!-- All-done banner -->
+      <div class="upload-all-done" id="upload-all-done" role="status" aria-live="polite">
+        <p>Thank you!</p>
+        <small>Your memories have been added to our shared album</small>
+      </div>
+
+      <!-- Upload button -->
+      <button type="button" id="upload-btn"
+              class="live-btn cam-btn upload-action-btn"
+              aria-label="Upload selected files to wedding album">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        </svg>
+        <span id="upload-btn-label">Upload Photos</span>
+      </button>
+
+      <!-- Add more (shown after upload) -->
+      <button type="button" id="upload-more-btn"
+              style="background:none;border:none;cursor:pointer;font-family:'Cormorant Infant',serif;
+                     font-style:italic;color:rgba(255,255,255,.45);font-size:.88rem;
+                     padding:.3rem 0;text-decoration:underline;display:none"
+              aria-label="Add more photos or videos">
+        + Add more photos
       </button>
     </div>
   </div>
@@ -1694,26 +1825,6 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
   <p class="ft-copy">Manovitha  &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp;  The Beginning of Our Forever</p>
 </footer>
 
-<!-- PHOTO UPLOAD MODAL -->
-<div class="photo-modal-overlay" id="photo-modal" role="dialog" aria-modal="true" aria-labelledby="photo-modal-title" hidden>
-  <div class="photo-modal">
-    <button class="photo-modal-close" id="photo-modal-close" aria-label="Close upload panel">&times;</button>
-    <div class="photo-modal-header">
-      <h3 class="photo-modal-title" id="photo-modal-title">Share Your Moments</h3>
-      <p class="photo-modal-sub">Upload your photos &amp; videos to our shared wedding album</p>
-    </div>
-    <div class="photo-modal-body">
-      <iframe id="photo-upload-iframe"
-              src=""
-              data-src="DRIVEUPLOADER_URL_HERE"
-              title="Photo upload"
-              allow="camera;microphone"
-              allowfullscreen
-              loading="lazy"></iframe>
-      <p class="photo-modal-fallback">Having trouble? <a href="DRIVEUPLOADER_URL_HERE" target="_blank" rel="noopener noreferrer">Open in a new tab</a></p>
-    </div>
-  </div>
-</div>
 
 <script>
 'use strict';
@@ -2102,47 +2213,204 @@ function submitRsvp(data,formEl,btnId){
   });
 }
 
-
-/* ═══ PHOTO UPLOAD MODAL ═══ */
+/* ═══ PHOTO UPLOAD ══════════════════════════════════════════════════════════ */
 (function(){
-  var overlay = document.getElementById('photo-modal');
-  var iframe  = document.getElementById('photo-upload-iframe');
-  var closeBtn= document.getElementById('photo-modal-close');
-  var openBtn = document.getElementById('photo-upload-link');
-  if(!overlay||!openBtn) return;
+  var MAX_BYTES  = 10*1024*1024;
+  var ALLOWED    = ['image/jpeg','image/png','image/webp','image/heic','video/mp4','video/quicktime'];
+  var staged     = [];   // Array<File|null>
+  var busy       = false;
 
-  function openModal(e){
-    e.preventDefault();
-    if(!iframe.src||iframe.src===location.href||iframe.src===''){
-      iframe.src=iframe.dataset.src;
-    }
-    overlay.hidden=false;
-    overlay.removeAttribute('hidden');
-    void overlay.offsetHeight;
-    overlay.classList.add('active');
-    requestAnimationFrame(function(){
-      requestAnimationFrame(function(){overlay.classList.add('visible')});
-    });
-    document.body.style.overflow='hidden';
-    closeBtn.focus();
-  }
+  var dz         = document.getElementById('upload-dz');
+  var fileInput  = document.getElementById('upload-input');
+  var previewEl  = document.getElementById('upload-preview');
+  var statusEl   = document.getElementById('upload-status-list');
+  var doneEl     = document.getElementById('upload-all-done');
+  var uploadBtn  = document.getElementById('upload-btn');
+  var btnLabel   = document.getElementById('upload-btn-label');
+  var moreBtn    = document.getElementById('upload-more-btn');
+  if(!dz||!fileInput) return;
 
-  function closeModal(){
-    overlay.classList.remove('visible');
-    setTimeout(function(){
-      overlay.classList.remove('active');
-      overlay.hidden=true;
-      document.body.style.overflow='';
-    },300);
-  }
-
-  openBtn.addEventListener('click',openModal);
-  closeBtn.addEventListener('click',closeModal);
-  overlay.addEventListener('click',function(e){if(e.target===overlay)closeModal()});
-  document.addEventListener('keydown',function(e){
-    if(e.key==='Escape'&&overlay.classList.contains('visible'))closeModal();
+  /* ── Drag & drop ── */
+  ['dragenter','dragover'].forEach(function(ev){
+    dz.addEventListener(ev,function(e){e.preventDefault();dz.classList.add('drag-over')});
   });
+  ['dragleave','dragend','drop'].forEach(function(ev){
+    dz.addEventListener(ev,function(e){e.preventDefault();dz.classList.remove('drag-over')});
+  });
+  dz.addEventListener('drop',function(e){handleFiles(Array.from(e.dataTransfer.files))});
+
+  /* ── Keyboard activation ── */
+  dz.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();fileInput.click()}
+  });
+
+  /* ── File input ── */
+  fileInput.addEventListener('change',function(){
+    handleFiles(Array.from(fileInput.files));
+    fileInput.value='';
+  });
+
+  /* ── Buttons ── */
+  uploadBtn.addEventListener('click',function(){if(!busy&&staged.filter(Boolean).length)runSequence()});
+  moreBtn.addEventListener('click',function(){fileInput.click()});
+
+  /* ── Handle new files ── */
+  function handleFiles(files){
+    var added=0;
+    files.forEach(function(f){
+      if(ALLOWED.indexOf(f.type)===-1){announce('"'+trunc(f.name)+'" — unsupported type');return}
+      if(f.size>MAX_BYTES){announce('"'+trunc(f.name)+'" — exceeds 10 MB limit');return}
+      var dup=staged.some(function(x){return x&&x.name===f.name&&x.size===f.size});
+      if(dup) return;
+      staged.push(f);
+      addThumb(f,staged.length-1);
+      added++;
+    });
+    if(added>0){
+      previewEl.classList.add('has-files');
+      uploadBtn.classList.add('visible');
+      doneEl.classList.remove('visible');
+      moreBtn.style.display='none';
+      statusEl.classList.remove('visible');
+      statusEl.innerHTML='';
+    }
+  }
+
+  /* ── Thumbnail ── */
+  function addThumb(f,idx){
+    var wrap=document.createElement('div');
+    wrap.className='upload-thumb';
+    wrap.dataset.index=idx;
+    var isVid=f.type.startsWith('video/');
+    if(isVid){
+      var vd=document.createElement('div');vd.className='upload-thumb-vid';
+      vd.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 10l4.553-2.276A1 1 0 0 1 21 8.723v6.554a1 1 0 0 1-1.447.894L15 14v-4z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>';
+      wrap.appendChild(vd);
+    }else{
+      var img=document.createElement('img');
+      img.alt=trunc(f.name);
+      var url=URL.createObjectURL(f);
+      img.src=url;
+      img.onload=function(){URL.revokeObjectURL(url)};
+      wrap.appendChild(img);
+    }
+    var ov=document.createElement('div');
+    ov.className='upload-thumb-status';ov.id='tov-'+idx;
+    wrap.appendChild(ov);
+    var rb=document.createElement('button');
+    rb.type='button';rb.className='upload-thumb-remove';
+    rb.setAttribute('aria-label','Remove '+trunc(f.name));
+    rb.textContent='×';rb.dataset.index=idx;
+    rb.addEventListener('click',function(e){
+      e.stopPropagation();
+      var i=parseInt(this.dataset.index,10);
+      staged[i]=null;
+      var th=previewEl.querySelector('[data-index="'+i+'"]');
+      if(th){th.style.opacity='.3';th.style.pointerEvents='none'}
+      if(!staged.filter(Boolean).length) uploadBtn.classList.remove('visible');
+    });
+    wrap.appendChild(rb);
+    previewEl.appendChild(wrap);
+  }
+
+  /* ── Sequential upload loop ── */
+  function runSequence(){
+    busy=true;uploadBtn.disabled=true;btnLabel.textContent='Uploading…';
+    var queue=staged.map(function(f,i){return{f:f,i:i}}).filter(function(x){return x.f});
+    statusEl.innerHTML='';statusEl.classList.add('visible');
+    queue.forEach(function(item){
+      var row=makeRow(item.i,item.f.name);statusEl.appendChild(row);
+    });
+    statusEl.scrollIntoView({behavior:'smooth',block:'nearest'});
+    var chain=Promise.resolve();
+    queue.forEach(function(item){
+      chain=chain.then(function(){return uploadOne(item.f,item.i)});
+    });
+    chain.then(function(){
+      busy=false;uploadBtn.disabled=false;btnLabel.textContent='Upload Photos';
+      uploadBtn.classList.remove('visible');
+      doneEl.classList.add('visible');
+      moreBtn.style.display='block';
+      staged=[];
+    });
+  }
+
+  /* ── Upload one file ── */
+  function uploadOne(f,idx){
+    return new Promise(function(resolve){
+      setThumb(idx,'uploading');setRow(idx,'uploading','Uploading…');
+      var reader=new FileReader();
+      reader.onload=function(e){
+        var b64=e.target.result.split(',')[1];
+        fetch(RSVP_API,{
+          method:'POST',
+          headers:{'Content-Type':'text/plain'},
+          body:JSON.stringify({formType:'photoUpload',fileName:f.name,mimeType:f.type,data:b64})
+        })
+        .then(function(r){return r.json()})
+        .then(function(d){
+          if(d.status==='ok'){setThumb(idx,'done');setRow(idx,'done','Saved!')}
+          else{setThumb(idx,'err');setRow(idx,'err',d.message||'Failed')}
+          resolve();
+        })
+        .catch(function(){setThumb(idx,'err');setRow(idx,'err','Network error');resolve()});
+      };
+      reader.onerror=function(){setThumb(idx,'err');setRow(idx,'err','Read error');resolve()};
+      reader.readAsDataURL(f);
+    });
+  }
+
+  /* ── Thumb overlay ── */
+  function setThumb(idx,state){
+    var el=document.getElementById('tov-'+idx);if(!el) return;
+    el.className='upload-thumb-status '+state;el.innerHTML='';
+    if(state==='uploading'){
+      var sp=document.createElement('div');sp.className='upload-spinner';
+      sp.setAttribute('aria-hidden','true');el.appendChild(sp);
+    }else if(state==='done'){
+      el.innerHTML='<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10l4 4 8-8" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round"/></svg>';
+    }else if(state==='err'){
+      el.innerHTML='<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" stroke="#f87171" stroke-width="2.5" stroke-linecap="round"/></svg>';
+    }
+  }
+
+  /* ── Status row ── */
+  function makeRow(idx,name){
+    var r=document.createElement('div');
+    r.className='upload-status-row';r.id='sr-'+idx;
+    r.innerHTML='<span class="upload-status-icon"></span>'+
+      '<span class="upload-status-name">'+escapeHtml(trunc(name))+'</span>'+
+      '<span class="upload-status-msg">Waiting…</span>';
+    return r;
+  }
+  function setRow(idx,state,msg){
+    var r=document.getElementById('sr-'+idx);if(!r) return;
+    r.className='upload-status-row '+state;
+    r.querySelector('.upload-status-msg').textContent=msg;
+    var ic=r.querySelector('.upload-status-icon');
+    if(state==='uploading'){
+      ic.innerHTML='<div class="upload-spinner" style="width:14px;height:14px;border-width:2px" aria-hidden="true"></div>';
+    }else if(state==='done'){
+      ic.innerHTML='<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7l3.5 3.5L12 3" stroke="#4ade80" stroke-width="2" stroke-linecap="round"/></svg>';
+    }else if(state==='err'){
+      ic.innerHTML='<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8" stroke="#f87171" stroke-width="2" stroke-linecap="round"/></svg>';
+    }
+  }
+
+  /* ── Helpers ── */
+  function announce(msg){
+    statusEl.classList.add('visible');
+    var n=document.createElement('div');
+    n.className='upload-status-row err';n.setAttribute('role','alert');
+    n.innerHTML='<span class="upload-status-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8" stroke="#f87171" stroke-width="2" stroke-linecap="round"/></svg></span>'+
+      '<span class="upload-status-name">'+escapeHtml(msg)+'</span>';
+    statusEl.appendChild(n);
+    setTimeout(function(){n.remove()},5000);
+  }
+  function trunc(s,n){n=n||32;return s.length>n?s.substring(0,n-1)+'\u2026':s}
 })();
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
 </script>
 
 <!-- Background Music -->
