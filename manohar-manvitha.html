@@ -2498,16 +2498,7 @@ function submitRsvp(data,formEl,btnId){
     started=true;
   });
 
-  /* attempt autoplay immediately on DOM ready */
-  document.addEventListener('DOMContentLoaded', function(){
-    audio.play().then(function(){
-      started=true;
-      btn.classList.add('playing');
-      btn.setAttribute('aria-label','Pause background music');
-    }).catch(function(){ /* blocked by browser policy — fallback to interaction */ });
-  });
-
-  /* fallback: play on first user interaction (click/tap/scroll — web + mobile) */
+  /* play on first user interaction (click/tap/scroll — web + mobile) */
   function autoStart(){
     if(started)return;
     started=true;
