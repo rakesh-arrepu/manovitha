@@ -2469,7 +2469,7 @@ function submitRsvp(data,formEl,btnId){
 </script>
 
 <!-- Background Music -->
-<audio id="bg-music" src="Seetha Kalyana Vaibhogame.mp3" loop preload="auto"></audio>
+<audio id="bg-music" src="Seetha Kalyana Vaibhogame.mp3" loop preload="auto" autoplay></audio>
 <button type="button" class="music-btn" id="music-btn" aria-label="Toggle background music">
   <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
   <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
@@ -2498,7 +2498,16 @@ function submitRsvp(data,formEl,btnId){
     started=true;
   });
 
-  /* auto-play on first user interaction (click/tap/scroll — web + mobile) */
+  /* attempt autoplay immediately on DOM ready */
+  document.addEventListener('DOMContentLoaded', function(){
+    audio.play().then(function(){
+      started=true;
+      btn.classList.add('playing');
+      btn.setAttribute('aria-label','Pause background music');
+    }).catch(function(){ /* blocked by browser policy — fallback to interaction */ });
+  });
+
+  /* fallback: play on first user interaction (click/tap/scroll — web + mobile) */
   function autoStart(){
     if(started)return;
     started=true;
