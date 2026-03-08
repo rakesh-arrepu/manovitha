@@ -2498,18 +2498,16 @@ function submitRsvp(data,formEl,btnId){
     started=true;
   });
 
-  /* auto-play on first user interaction (click/tap/scroll) */
+  /* auto-play on first user interaction (click/tap/scroll — web + mobile) */
   function autoStart(){
     if(started)return;
     started=true;
     play();
-    document.removeEventListener('click',autoStart);
-    document.removeEventListener('touchstart',autoStart);
-    document.removeEventListener('scroll',autoStart);
+    ['click','touchstart','touchend','touchmove','pointerdown','wheel','keydown','scroll']
+      .forEach(function(ev){ document.removeEventListener(ev,autoStart); });
   }
-  document.addEventListener('click',autoStart,{once:false});
-  document.addEventListener('touchstart',autoStart,{once:false});
-  document.addEventListener('scroll',autoStart,{once:false});
+  ['click','touchstart','touchend','touchmove','pointerdown','wheel','keydown','scroll']
+    .forEach(function(ev){ document.addEventListener(ev,autoStart,{passive:true}); });
 })();
 </script>
 </body>
