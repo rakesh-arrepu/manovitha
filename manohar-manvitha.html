@@ -2482,8 +2482,9 @@ function submitRsvp(data,formEl,btnId){
 
 </script>
 
-<!-- Background Music -->
-<audio id="bg-music" src="Seetha Kalyana Vaibhogame.mp3" loop preload="auto" autoplay></audio>
+<!-- Background Music: muted autoplay is universally allowed by browsers;
+     we unmute immediately once playing to bypass autoplay policy -->
+<audio id="bg-music" src="Seetha Kalyana Vaibhogame.mp3" preload="auto" autoplay muted></audio>
 <button type="button" class="music-btn" id="music-btn" aria-label="Toggle background music">
   <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
   <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
@@ -2492,36 +2493,44 @@ function submitRsvp(data,formEl,btnId){
 (function(){
   var audio=document.getElementById('bg-music');
   var btn=document.getElementById('music-btn');
-  var started=false;
+  var LOOP_END=37; /* seconds — gapless loop point */
 
-  function play(){
-    audio.play().then(function(){
-      btn.classList.add('playing');
-      btn.setAttribute('aria-label','Pause background music');
-    }).catch(function(){});
-  }
-  function pause(){
-    audio.pause();
-    btn.classList.remove('playing');
-    btn.setAttribute('aria-label','Play background music');
-  }
-
-  /* toggle on button click */
-  btn.addEventListener('click',function(){
-    if(audio.paused){play()}else{pause()}
-    started=true;
+  /* seamless loop: reset currentTime while still playing (no stop/start gap) */
+  audio.addEventListener('timeupdate',function(){
+    if(audio.currentTime>=LOOP_END){audio.currentTime=0;}
   });
 
-  /* play on first user interaction (click/tap/scroll — web + mobile) */
-  function autoStart(){
-    if(started)return;
-    started=true;
-    play();
-    ['click','touchstart','touchend','touchmove','pointerdown','wheel','keydown','scroll']
-      .forEach(function(ev){ document.removeEventListener(ev,autoStart); });
+  function syncBtn(){
+    var playing=!audio.paused&&!audio.muted;
+    btn.classList.toggle('playing',playing);
+    btn.setAttribute('aria-label',playing?'Pause background music':'Play background music');
   }
-  ['click','touchstart','touchend','touchmove','pointerdown','wheel','keydown','scroll']
-    .forEach(function(ev){ document.addEventListener(ev,autoStart,{passive:true}); });
+
+  /* unmute immediately once playing — browser permits this after muted autoplay */
+  audio.addEventListener('playing',function(){
+    audio.muted=false;
+    syncBtn();
+  },{once:true});
+
+  /* fallback: if autoplay was still blocked, unmute+play on first interaction */
+  function unlockOnInteraction(){
+    audio.muted=false;
+    audio.play().then(syncBtn).catch(function(){});
+    EVENTS.forEach(function(ev){document.removeEventListener(ev,unlockOnInteraction);});
+  }
+  var EVENTS=['click','touchstart','pointerdown','keydown','scroll'];
+  EVENTS.forEach(function(ev){document.addEventListener(ev,unlockOnInteraction,{passive:true,once:true});});
+
+  /* manual toggle */
+  btn.addEventListener('click',function(){
+    if(audio.paused||audio.muted){
+      audio.muted=false;
+      audio.play().then(syncBtn).catch(function(){});
+    } else {
+      audio.pause();
+      syncBtn();
+    }
+  });
 })();
 </script>
 </body>
