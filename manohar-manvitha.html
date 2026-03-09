@@ -2495,9 +2495,16 @@ function submitRsvp(data,formEl,btnId){
   var btn=document.getElementById('music-btn');
   var LOOP_END=37; /* seconds — gapless loop point */
 
-  /* seamless loop: reset currentTime while still playing (no stop/start gap) */
+  /* seamless loop: reset while still playing (covers files longer than 37s) */
   audio.addEventListener('timeupdate',function(){
     if(audio.currentTime>=LOOP_END){audio.currentTime=0;}
+  });
+
+  /* safety net: if file ends before 37s, restart explicitly */
+  audio.addEventListener('ended',function(){
+    audio.currentTime=0;
+    audio.muted=false;
+    audio.play().then(syncBtn).catch(function(){});
   });
 
   function syncBtn(){
