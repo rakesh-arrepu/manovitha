@@ -1020,7 +1020,7 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
 .music-btn:not(.playing){animation:none}
 
 /* ── LIVE FLASH BANNER ── */
-.live-banner{position:fixed;top:65px;left:50%;transform:translate(-50%,-18px);
+.live-banner{position:fixed;top:90px;left:50%;transform:translate(-50%,-18px);
   z-index:99;width:min(740px,calc(100% - 24px));
   background:linear-gradient(135deg,rgba(45,17,84,.97) 0%,rgba(76,29,149,.96) 50%,rgba(45,17,84,.97) 100%);
   border:1px solid rgba(240,208,96,.4);border-radius:14px;
@@ -1058,7 +1058,7 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
 .live-banner-close:focus-visible{outline:2px solid var(--goldbr);outline-offset:2px}
 .live-banner-close svg{width:18px;height:18px}
 @media(max-width:580px){
-  .live-banner{top:58px;width:calc(100% - 16px)}
+  .live-banner{top:78px;width:calc(100% - 16px)}
   .live-banner-inner{padding:.55rem .7rem .55rem .85rem;gap:.6rem}
   .live-banner-label{font-size:.6rem;letter-spacing:.16em}
   .live-banner-time{font-size:.82rem;line-height:1.25}
@@ -2068,8 +2068,8 @@ function tick(){
   elD.textContent=p(days,3);elH.textContent=p(hrs);elM.textContent=p(mins);
   if(secs!==ps){elS.textContent=p(secs);fl(elS);if(secs===59)fl(elM);ps=secs}
 }
-tick();
 const timer=setInterval(tick,500);
+tick();
 
 /* SCROLL REVEAL */
 const obs=new IntersectionObserver(entries=>{
