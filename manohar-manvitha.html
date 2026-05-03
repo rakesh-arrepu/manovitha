@@ -1019,6 +1019,55 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
 .music-btn.playing{animation:musicSpin 3s linear infinite}
 .music-btn:not(.playing){animation:none}
 
+/* ── LIVE FLASH BANNER ── */
+.live-banner{position:fixed;top:65px;left:50%;transform:translate(-50%,-18px);
+  z-index:99;width:min(740px,calc(100% - 24px));
+  background:linear-gradient(135deg,rgba(45,17,84,.97) 0%,rgba(76,29,149,.96) 50%,rgba(45,17,84,.97) 100%);
+  border:1px solid rgba(240,208,96,.4);border-radius:14px;
+  box-shadow:0 14px 44px rgba(76,29,149,.5),inset 0 0 0 1px rgba(240,208,96,.1);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .5s ease,transform .55s cubic-bezier(.34,1.56,.64,1),visibility .5s;
+  -webkit-backdrop-filter:blur(18px) saturate(1.25);backdrop-filter:blur(18px) saturate(1.25)}
+.live-banner.show{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
+.live-banner-inner{display:flex;align-items:center;gap:.95rem;padding:.7rem 1rem .7rem 1.15rem}
+.live-banner-dot{width:9px;height:9px;border-radius:50%;background:#ff3c3c;flex-shrink:0;
+  box-shadow:0 0 0 0 rgba(255,60,60,.7);animation:liveBannerPulse 1.7s ease-out infinite}
+@keyframes liveBannerPulse{
+  0%{box-shadow:0 0 0 0 rgba(255,60,60,.65)}
+  70%{box-shadow:0 0 0 14px rgba(255,60,60,0)}
+  100%{box-shadow:0 0 0 0 rgba(255,60,60,0)}
+}
+.live-banner-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.live-banner-label{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.2em;
+  color:var(--goldbr);font-weight:700;text-transform:uppercase}
+.live-banner-time{font-family:'Cormorant Infant',serif;font-size:.95rem;
+  color:rgba(255,255,255,.92);line-height:1.3;font-weight:500}
+.live-banner-time .lb-sep{color:rgba(240,208,96,.55);margin:0 .35rem}
+.live-banner-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.55rem 1.05rem;
+  background:linear-gradient(135deg,#ff3c3c,#cc0000);color:#fff;text-decoration:none;
+  border-radius:50px;font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.08em;
+  font-weight:600;flex-shrink:0;box-shadow:0 4px 14px rgba(204,0,0,.5);
+  transition:transform .2s ease,box-shadow .2s ease}
+.live-banner-btn:hover{transform:translateY(-2px);box-shadow:0 7px 20px rgba(204,0,0,.65)}
+.live-banner-btn:focus-visible{outline:2px solid var(--goldbr);outline-offset:3px}
+.live-banner-btn svg{width:14px;height:14px}
+.live-banner-close{background:transparent;border:none;color:rgba(255,255,255,.55);
+  cursor:pointer;padding:6px;border-radius:50%;flex-shrink:0;line-height:0;
+  transition:color .2s ease,background-color .2s ease}
+.live-banner-close:hover{color:#fff;background:rgba(255,255,255,.12)}
+.live-banner-close:focus-visible{outline:2px solid var(--goldbr);outline-offset:2px}
+.live-banner-close svg{width:18px;height:18px}
+@media(max-width:580px){
+  .live-banner{top:58px;width:calc(100% - 16px)}
+  .live-banner-inner{padding:.55rem .7rem .55rem .85rem;gap:.6rem}
+  .live-banner-label{font-size:.6rem;letter-spacing:.16em}
+  .live-banner-time{font-size:.82rem;line-height:1.25}
+  .live-banner-time .lb-sep{display:none}
+  .live-banner-time .lb-tz2{display:block}
+  .live-banner-btn{padding:.45rem .7rem;font-size:.7rem}
+  .live-banner-btn span{display:none}
+}
+
 /* ── REDUCED MOTION ── */
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -1050,6 +1099,28 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
     <span></span><span></span><span></span>
   </button>
 </nav>
+
+<!-- LIVE FLASH BANNER -->
+<div id="liveBanner" class="live-banner" role="region" aria-label="Live stream alert" aria-hidden="true">
+  <div class="live-banner-inner">
+    <span class="live-banner-dot" aria-hidden="true"></span>
+    <div class="live-banner-text">
+      <span class="live-banner-label">Live on YouTube &middot; May 3, 2026</span>
+      <span class="live-banner-time">
+        <span class="lb-tz1">9:00 AM MDT</span><span class="lb-sep">&middot;</span><span class="lb-tz2">8:30 PM IST</span>
+      </span>
+    </div>
+    <a href="https://www.youtube.com/live/iusr_iyINA4?si=NR8q1jsbik7sLjm-"
+       class="live-banner-btn" target="_blank" rel="noopener noreferrer"
+       aria-label="Watch the wedding ceremony live on YouTube">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+      <span>Watch Live</span>
+    </a>
+    <button type="button" class="live-banner-close" id="liveBannerClose" aria-label="Dismiss live stream banner">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</div>
 
 <!-- HERO -->
 <section id="hero" aria-label="Wedding of Manohar and Manvitha">
@@ -1765,7 +1836,7 @@ footer{background:var(--deep);color:var(--white);text-align:center;padding:4rem 
           <span class="tz-flag" aria-hidden="true">&#127470;&#127475;</span> May 3, 2026 &middot; 8:30 PM IST
         </span>
       </div>
-      <a href="#" class="live-btn yt-btn" id="live-yt-link" target="_blank" rel="noopener noreferrer" aria-label="Watch live on YouTube">
+      <a href="https://www.youtube.com/live/iusr_iyINA4?si=NR8q1jsbik7sLjm-" class="live-btn yt-btn" id="live-yt-link" target="_blank" rel="noopener noreferrer" aria-label="Watch live on YouTube">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
         <span>Watch Live</span>
       </a>
@@ -1914,6 +1985,25 @@ function escapeHtml(s){const d=document.createElement('div');d.appendChild(docum
 
 /* PRELOADER */
 window.addEventListener('load',()=>setTimeout(()=>document.getElementById('pl').classList.add('gone'),1000));
+
+/* ═══ LIVE FLASH BANNER ═══ */
+(function(){
+  const banner=document.getElementById('liveBanner');
+  if(!banner)return;
+  const closeBtn=document.getElementById('liveBannerClose');
+  const KEY='liveBannerDismissed';
+  if(sessionStorage.getItem(KEY)==='1')return;
+  /* reveal shortly after preloader fades so the entrance reads as a "flash" */
+  window.addEventListener('load',()=>setTimeout(()=>{
+    banner.classList.add('show');
+    banner.setAttribute('aria-hidden','false');
+  },1500));
+  closeBtn.addEventListener('click',()=>{
+    banner.classList.remove('show');
+    banner.setAttribute('aria-hidden','true');
+    try{sessionStorage.setItem(KEY,'1');}catch(e){}
+  });
+})();
 
 /* ═══ HERO PARALLAX ═══ */
 (function(){
